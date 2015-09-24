@@ -7,9 +7,6 @@ package wallet.telas;
 public class TelaPrincipal extends javax.swing.JFrame
 {
 
-    /**
-     * Creates new form TelaPrincipal
-     */
     public TelaPrincipal() {
         initComponents();
     }
@@ -19,27 +16,62 @@ public class TelaPrincipal extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        dskPrincipal = new wallet.telas.AreaDeTrabalho();
+        mnbMenu = new javax.swing.JMenuBar();
+        jmnCadastro = new javax.swing.JMenu();
+        jmiUsuario = new javax.swing.JMenuItem();
+        jmiCDebito = new javax.swing.JMenuItem();
+        jmiCCredito = new javax.swing.JMenuItem();
+        jmnConsulta = new javax.swing.JMenu();
+        jmiSaldo = new javax.swing.JMenuItem();
+        jmiLimite = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Wallet!");
+        setMinimumSize(new java.awt.Dimension(800, 400));
+        setName("frmWallet"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(0, 0));
+        setSize(new java.awt.Dimension(300, 300));
+        getContentPane().add(dskPrincipal, java.awt.BorderLayout.CENTER);
+
+        jmnCadastro.setText("Cadastros");
+
+        jmiUsuario.setText("Usuário");
+        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuarioActionPerformed(evt);
+            }
+        });
+        jmnCadastro.add(jmiUsuario);
+
+        jmiCDebito.setText("Cartão de débito");
+        jmnCadastro.add(jmiCDebito);
+
+        jmiCCredito.setText("Cartão de crédito");
+        jmnCadastro.add(jmiCCredito);
+
+        mnbMenu.add(jmnCadastro);
+
+        jmnConsulta.setText("Consultas");
+
+        jmiSaldo.setText("Saldo");
+        jmnConsulta.add(jmiSaldo);
+
+        jmiLimite.setText("Limites");
+        jmnConsulta.add(jmiLimite);
+
+        mnbMenu.add(jmnConsulta);
+
+        setJMenuBar(mnbMenu);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
+        dskPrincipal.abrirCadastroUsuario();
+    }//GEN-LAST:event_jmiUsuarioActionPerformed
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -62,7 +94,6 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaPrincipal().setVisible(true);
@@ -71,5 +102,14 @@ public class TelaPrincipal extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private wallet.telas.AreaDeTrabalho dskPrincipal;
+    private javax.swing.JMenuItem jmiCCredito;
+    private javax.swing.JMenuItem jmiCDebito;
+    private javax.swing.JMenuItem jmiLimite;
+    private javax.swing.JMenuItem jmiSaldo;
+    private javax.swing.JMenuItem jmiUsuario;
+    private javax.swing.JMenu jmnCadastro;
+    private javax.swing.JMenu jmnConsulta;
+    private javax.swing.JMenuBar mnbMenu;
     // End of variables declaration//GEN-END:variables
 }
