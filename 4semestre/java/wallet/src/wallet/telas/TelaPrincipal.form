@@ -17,14 +17,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiUsuarioActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiCDebito">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiCartao">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cart&#xe3;o de d&#xe9;bito"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiCCredito">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cart&#xe3;o de cr&#xe9;dito"/>
+                <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cart&#xe3;o"/>
               </Properties>
             </MenuItem>
           </SubComponents>
