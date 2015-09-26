@@ -5,14 +5,17 @@
  */
 package wallet.telas.frames.cadastros;
 
+import javax.swing.JDesktopPane;
+import wallet.telas.AreaDeTrabalho;
+
 /**
  *
  * @author jordana
  */
-public class FrameCadastroCartao extends javax.swing.JFrame {
+public class FrameCadastroCartao extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form CadastroCartaoDebito
+     * Creates new form FrameCadastroCartão
      */
     public FrameCadastroCartao() {
         initComponents();
@@ -26,57 +29,94 @@ public class FrameCadastroCartao extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        jLInformações = new javax.swing.JLabel();
-        jLNumeroCartao = new javax.swing.JLabel();
-        jCheckDebito = new javax.swing.JCheckBox();
-        jChecKCredito = new javax.swing.JCheckBox();
-        jTxtNumeroCartao = new javax.swing.JTextField();
-        jLBandeira = new javax.swing.JLabel();
-        jLDataValidade = new javax.swing.JLabel();
-        jCBxBandeiras = new javax.swing.JComboBox();
-        jCBxDia = new javax.swing.JComboBox();
-        jCBxAno = new javax.swing.JComboBox();
-        jLCodigoVerificação = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLCPF = new javax.swing.JLabel();
-        jTxtCPF = new javax.swing.JFormattedTextField();
+        lstCartoes = new java.util.LinkedList<wallet.models.Usuario>();
+        lblCPF = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JFormattedTextField();
+        lblNomeTitular = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblInformeCartao = new javax.swing.JLabel();
+        lblNumeroCartao = new javax.swing.JLabel();
+        txtNumeroCartao = new javax.swing.JTextField();
+        cmbxBandeira = new javax.swing.JComboBox();
+        lblBandeira = new javax.swing.JLabel();
+        lblDataValidade = new javax.swing.JLabel();
+        cmbxDataMes = new javax.swing.JComboBox();
+        cmbxdataAno = new javax.swing.JComboBox();
+        lblCodigoVerificaçao = new javax.swing.JLabel();
+        txtCodigoVerificaçao = new javax.swing.JTextField();
+        btExcluir = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbCartoes = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setName("Cadastro de Cartões"); // NOI18N
-        setSize(new java.awt.Dimension(400, 600));
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Cadastro de Cartão");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
-        jLInformações.setText("Informe qual cartão será cadastrado");
-
-        jLNumeroCartao.setText("Numero do Cartão");
-
-        jCheckDebito.setText("Cartão de Débito");
-
-        jChecKCredito.setText("Cartão de Crédito");
-
-        jLBandeira.setText("Bandeira do Cartão");
-
-        jLDataValidade.setText("Data de validade");
-
-        jCBxBandeiras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Master", "Cielo", "Elo", "Hipercard" }));
-
-        jCBxDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        jCBxAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
-
-        jLCodigoVerificação.setText("Código de verificação");
-
-        jLCPF.setText("CPF");
+        lblCPF.setText("CPF");
 
         try
         {
             javax.swing.text.MaskFormatter formatCPF = new javax.swing.text.MaskFormatter("###.###.###-##");
 
-            jTxtCPF = new javax.swing.JFormattedTextField(formatCPF);
+            txtCPF = new javax.swing.JFormattedTextField(formatCPF);
         }
         catch (Exception e)
         {
         }
+
+        lblNomeTitular.setText("Nome do titular do cartão");
+
+        lblInformeCartao.setText("Informe qual cartão será cadastrado");
+
+        lblNumeroCartao.setText("Número do cartão");
+
+        cmbxBandeira.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visa", "Master", "Cielo", "Elo", "Hipercad" }));
+
+        lblBandeira.setText("Bandeira");
+
+        lblDataValidade.setText("Data de validade");
+
+        cmbxDataMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        cmbxdataAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+
+        lblCodigoVerificaçao.setText("Código de verificação");
+
+        btExcluir.setText("Excluir");
+
+        btSalvar.setText("Salvar");
+
+        btAlterar.setText("Alterar");
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lstCartoes, tbCartoes);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+
+        jScrollPane2.setViewportView(tbCartoes);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crédito", "Débito" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,122 +125,123 @@ public class FrameCadastroCartao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckDebito)
-                    .addComponent(jLInformações)
-                    .addComponent(jChecKCredito)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btAlterar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btExcluir))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLBandeira))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBxBandeiras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCBxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jCBxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLCodigoVerificação)
+                                .addComponent(lblCPF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLDataValidade)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLCPF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNomeTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblInformeCartao)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCodigoVerificaçao)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCodigoVerificaçao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNumeroCartao)
+                                    .addComponent(lblBandeira))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbxBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDataValidade)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbxDataMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(cmbxdataAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 26, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLCPF)
-                    .addComponent(jTxtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addComponent(jLInformações)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckDebito)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jChecKCredito)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTxtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLBandeira)
-                    .addComponent(jCBxBandeiras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLDataValidade)
-                    .addComponent(jCBxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCBxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(lblNomeTitular)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblInformeCartao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLCodigoVerificação)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110))
+                    .addComponent(lblNumeroCartao)
+                    .addComponent(txtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbxBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBandeira))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDataValidade)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbxDataMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbxdataAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodigoVerificaçao)
+                    .addComponent(txtCodigoVerificaçao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAlterar)
+                    .addComponent(btSalvar)
+                    .addComponent(btExcluir))
+                .addGap(166, 166, 166))
         );
 
-        pack();
+        bindingGroup.bind();
+
+        setBounds(0, 0, 550, 544);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameCadastroCartao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameCadastroCartao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameCadastroCartao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameCadastroCartao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        JDesktopPane cartao = getDesktopPane();
+        ((AreaDeTrabalho)cartao).fecharCadastroCartao();
+    }//GEN-LAST:event_formInternalFrameClosing
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrameCadastroCartao().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jCBxAno;
-    private javax.swing.JComboBox jCBxBandeiras;
-    private javax.swing.JComboBox jCBxDia;
-    private javax.swing.JCheckBox jChecKCredito;
-    private javax.swing.JCheckBox jCheckDebito;
-    private javax.swing.JLabel jLBandeira;
-    private javax.swing.JLabel jLCPF;
-    private javax.swing.JLabel jLCodigoVerificação;
-    private javax.swing.JLabel jLDataValidade;
-    private javax.swing.JLabel jLInformações;
-    private javax.swing.JLabel jLNumeroCartao;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JFormattedTextField jTxtCPF;
-    private javax.swing.JTextField jTxtNumeroCartao;
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox cmbxBandeira;
+    private javax.swing.JComboBox cmbxDataMes;
+    private javax.swing.JComboBox cmbxdataAno;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblBandeira;
+    private javax.swing.JLabel lblCPF;
+    private javax.swing.JLabel lblCodigoVerificaçao;
+    private javax.swing.JLabel lblDataValidade;
+    private javax.swing.JLabel lblInformeCartao;
+    private javax.swing.JLabel lblNomeTitular;
+    private javax.swing.JLabel lblNumeroCartao;
+    private java.util.List lstCartoes;
+    private javax.swing.JTable tbCartoes;
+    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JTextField txtCodigoVerificaçao;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNumeroCartao;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

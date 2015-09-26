@@ -36,21 +36,17 @@ public class AreaDeTrabalho extends JDesktopPane
     
     public void abrirCadastroCartao()
     {
-        if(cadastrarCartao == null)
-        {
-            cadastrarCartao = new FrameCadastroCartao();
-            
-            cadastrarCartao.setVisible(true);
-            
-            add(cadastrarCartao);
-        }          
+     if(cadastrarCartao == null)
+     {
+         cadastrarCartao = new FrameCadastroCartao();
+         cadastrarCartao.setVisible(true);
+         add(cadastrarCartao);
+     }
     }
     
     public void fecharCadastroCartao()
     {
         cadastrarCartao.dispose();
-        
         cadastrarCartao = null;
     }
-    
 }

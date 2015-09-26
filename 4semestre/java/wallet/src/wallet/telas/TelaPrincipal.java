@@ -43,6 +43,11 @@ public class TelaPrincipal extends javax.swing.JFrame
         jmnCadastro.add(jmiUsuario);
 
         jmiCartao.setText("Cartão de Cartão");
+        jmiCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCartaoActionPerformed(evt);
+            }
+        });
         jmnCadastro.add(jmiCartao);
 
         mnbMenu.add(jmnCadastro);
@@ -65,6 +70,10 @@ public class TelaPrincipal extends javax.swing.JFrame
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         dskPrincipal.abrirCadastroUsuario();
     }//GEN-LAST:event_jmiUsuarioActionPerformed
+
+    private void jmiCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCartaoActionPerformed
+        dskPrincipal.abrirCadastroCartao();
+    }//GEN-LAST:event_jmiCartaoActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
