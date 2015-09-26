@@ -6,5 +6,20 @@ package wallet.models;
  */
 public class CartaoDebito extends Cartao
 {
+
+    public CartaoDebito()
+    {
+    }
+    
+    public CartaoDebito(double saldo)
+    {
+        this();
+    }
+    
+    @Override
+    public void passarCartao()
+    {
+        
+    }
     
 }

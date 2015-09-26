@@ -1,5 +1,7 @@
 package wallet.telas;
 
+import javax.swing.JFrame;
+
 /**
  * Tela principal para abertura da janela.
  * @author Gustavo Marttos
@@ -11,6 +13,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         initComponents();
         
         this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
 

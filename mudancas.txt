@@ -1,5 +1,0 @@
-Wallet
-* Atalhos dos menus;
-* Fixação da tela;
-* Centralizar a tela;
-* Validar CPF e permitir somente nũmeros.
