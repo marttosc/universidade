@@ -20,8 +20,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         mnbMenu = new javax.swing.JMenuBar();
         jmnCadastro = new javax.swing.JMenu();
         jmiUsuario = new javax.swing.JMenuItem();
-        jmiCDebito = new javax.swing.JMenuItem();
-        jmiCCredito = new javax.swing.JMenuItem();
+        jmiCartao = new javax.swing.JMenuItem();
         jmnConsulta = new javax.swing.JMenu();
         jmiSaldo = new javax.swing.JMenuItem();
         jmiLimite = new javax.swing.JMenuItem();
@@ -30,7 +29,6 @@ public class TelaPrincipal extends javax.swing.JFrame
         setTitle("Wallet!");
         setMinimumSize(new java.awt.Dimension(800, 400));
         setName("frmWallet"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(0, 0));
         setSize(new java.awt.Dimension(300, 300));
         getContentPane().add(dskPrincipal, java.awt.BorderLayout.CENTER);
 
@@ -44,11 +42,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         });
         jmnCadastro.add(jmiUsuario);
 
-        jmiCDebito.setText("Cartão de débito");
-        jmnCadastro.add(jmiCDebito);
-
-        jmiCCredito.setText("Cartão de crédito");
-        jmnCadastro.add(jmiCCredito);
+        jmiCartao.setText("Cartão de Cartão");
+        jmnCadastro.add(jmiCartao);
 
         mnbMenu.add(jmnCadastro);
 
@@ -103,8 +98,7 @@ public class TelaPrincipal extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private wallet.telas.AreaDeTrabalho dskPrincipal;
-    private javax.swing.JMenuItem jmiCCredito;
-    private javax.swing.JMenuItem jmiCDebito;
+    private javax.swing.JMenuItem jmiCartao;
     private javax.swing.JMenuItem jmiLimite;
     private javax.swing.JMenuItem jmiSaldo;
     private javax.swing.JMenuItem jmiUsuario;
