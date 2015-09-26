@@ -5,6 +5,9 @@
  */
 package wallet.telas.frames.cadastros;
 
+import javax.swing.JDesktopPane;
+import wallet.telas.AreaDeTrabalho;
+
 /**
  *
  * @author gustavo
@@ -40,21 +43,38 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         txtBairro = new javax.swing.JTextField();
         txtCEP = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
-        txtUF = new javax.swing.JTextField();
         txtRenda = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         lblNascimento = new javax.swing.JLabel();
-        txtNascimento = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         txtCPF = new javax.swing.JFormattedTextField();
+        txtNascimento = new javax.swing.JFormattedTextField();
+        txtUF = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro de Usuários");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formCadastroUsuarioClose(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         lblCPF.setText("CPF");
 
@@ -96,6 +116,18 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         {
         }
 
+        try
+        {
+            javax.swing.text.MaskFormatter formatNasc = new javax.swing.text.MaskFormatter("##/##/####");
+
+            txtNascimento = new javax.swing.JFormattedTextField(formatNasc);
+        }
+        catch (Exception e)
+        {
+        }
+
+        txtUF.setDocument(new wallet.aux.swing.text.TextFieldLimit(2));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,8 +163,8 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                         .addComponent(lblUF)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -169,8 +201,8 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCPF)
                     .addComponent(lblNascimento)
-                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
@@ -209,6 +241,12 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         setBounds(0, 0, 669, 349);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formCadastroUsuarioClose(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formCadastroUsuarioClose
+        JDesktopPane dsk = getDesktopPane();
+        
+        ((AreaDeTrabalho) dsk).fecharCadastroUsuario();
+    }//GEN-LAST:event_formCadastroUsuarioClose
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -231,9 +269,9 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNascimento;
+    private javax.swing.JFormattedTextField txtNascimento;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtRenda;
-    private javax.swing.JTextField txtUF;
+    private javax.swing.JFormattedTextField txtUF;
     // End of variables declaration//GEN-END:variables
 }

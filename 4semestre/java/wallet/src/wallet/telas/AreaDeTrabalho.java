@@ -1,6 +1,7 @@
 package wallet.telas;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import wallet.telas.frames.cadastros.FrameCadastroUsuario;
 
 /**
@@ -20,6 +21,8 @@ public class AreaDeTrabalho extends JDesktopPane
             cadastrarUsuario.setVisible(true);
             
             add(cadastrarUsuario);
+            
+            centralizar(cadastrarUsuario);
         }
     }
     
@@ -28,5 +31,15 @@ public class AreaDeTrabalho extends JDesktopPane
         cadastrarUsuario.dispose();
         
         cadastrarUsuario = null;
+    }
+    
+    protected void centralizar(JInternalFrame jif)
+    {
+        int lDsk = jif.getDesktopPane().getWidth();
+        int aDsk = jif.getDesktopPane().getHeight();
+        int lFrm = jif.getWidth();
+        int aFrm = jif.getHeight();
+        
+        jif.setLocation(lDsk/2 - lFrm/2, aDsk/2 - aFrm/2);
     }
 }
