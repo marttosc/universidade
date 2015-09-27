@@ -6,6 +6,9 @@
 package wallet.telas.frames.cadastros;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+import org.apache.commons.validator.routines.EmailValidator;
+import wallet.models.Usuario;
 import wallet.telas.AreaDeTrabalho;
 
 /**
@@ -41,9 +44,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         lblRenda = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
-        txtCEP = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
-        txtRenda = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         lblNascimento = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -53,7 +54,9 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         txtCPF = new javax.swing.JFormattedTextField();
         txtNascimento = new javax.swing.JFormattedTextField();
-        txtUF = new javax.swing.JFormattedTextField();
+        txtCEP = new javax.swing.JFormattedTextField();
+        txtRenda = new wallet.aux.swing.text.JNumberFormatField();
+        cbbUF = new javax.swing.JComboBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -94,9 +97,13 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
 
         lblRenda.setText("Renda");
 
-        txtCEP.setMinimumSize(new java.awt.Dimension(80, 27));
-
         lblNascimento.setText("Nascimento");
+
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         btnCadastrar.setText("Cadastrar");
 
@@ -115,6 +122,11 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         catch (Exception e)
         {
         }
+        txtCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCPFFocusLost(evt);
+            }
+        });
 
         try
         {
@@ -126,7 +138,17 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         {
         }
 
-        txtUF.setDocument(new wallet.aux.swing.text.TextFieldLimit(2));
+        try
+        {
+            javax.swing.text.MaskFormatter formatCEP = new javax.swing.text.MaskFormatter("#####-###");
+
+            txtCEP = new javax.swing.JFormattedTextField(formatCEP);
+        }
+        catch (Exception e)
+        {
+        }
+
+        cbbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,7 +170,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblCidade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +186,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -177,22 +199,22 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                     .addComponent(txtNome))
                                 .addGap(209, 209, 209))))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblRenda)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnExcluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCadastrar))
+                                .addComponent(btnCadastrar)
+                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblRenda)
                                 .addGap(37, 37, 37)
-                                .addComponent(txtRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addComponent(txtRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,15 +243,15 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCEP)
                     .addComponent(lblUF)
-                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCidade)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRenda)
                     .addComponent(txtRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnAlterar)
@@ -247,12 +269,34 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         ((AreaDeTrabalho) dsk).fecharCadastroUsuario();
     }//GEN-LAST:event_formCadastroUsuarioClose
 
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        if (!EmailValidator.getInstance().isValid(txtEmail.getText().trim()))
+        {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
+        if (Usuario.removerMascaraCPF(txtCPF.getText().trim()).length() > 6)
+        {
+            if (!Usuario.validarCPF(Usuario.removerMascaraCPF(txtCPF.getText().trim())))
+            {
+                JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro",
+                                        JOptionPane.ERROR_MESSAGE);
+
+                txtCPF.setValue("");
+                txtCPF.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtCPFFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JComboBox cbbUF;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCEP;
     private javax.swing.JLabel lblCPF;
@@ -264,7 +308,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblRenda;
     private javax.swing.JLabel lblUF;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCEP;
+    private javax.swing.JFormattedTextField txtCEP;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEmail;
@@ -272,6 +316,5 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField txtNascimento;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtRenda;
-    private javax.swing.JFormattedTextField txtUF;
     // End of variables declaration//GEN-END:variables
 }

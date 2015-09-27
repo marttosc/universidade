@@ -1,5 +1,6 @@
 package wallet;
 
+import java.util.Locale;
 import wallet.telas.TelaPrincipal;
 
 /**
@@ -15,6 +16,8 @@ public class WalletPrincipal
      */
     public static void main(String[] args)
     {
+        Locale.setDefault(new Locale("pt", "BR"));
+        
         TelaPrincipal tela = new TelaPrincipal();
         
         tela.setVisible(true);

@@ -48,7 +48,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtCEP" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="txtCEP" min="-2" pref="91" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblCidade" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtBairro" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <Component id="txtUF" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="cbbUF" min="-2" pref="56" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -89,9 +89,10 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
+                      <Component id="lblRenda" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
@@ -99,15 +100,14 @@
                               <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblRenda" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="txtRenda" min="-2" pref="90" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="txtRenda" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -144,17 +144,17 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblCEP" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblUF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCEP" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtUF" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCEP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbbUF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblRenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtRenda" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -216,16 +216,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtBairro">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCEP">
-      <Properties>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[80, 27]"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="txtCidade">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtRenda">
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
     </Component>
@@ -235,6 +226,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCadastrar">
       <Properties>
@@ -257,6 +251,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtCPF">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCPFFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatCPF = new javax.swing.text.MaskFormatter(&quot;###.###.###-##&quot;);&#xa;&#xa;    txtCPF = new javax.swing.JFormattedTextField(formatCPF);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
       </AuxValues>
@@ -266,10 +263,22 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatNasc = new javax.swing.text.MaskFormatter(&quot;##/##/####&quot;);&#xa;&#xa;    txtNascimento = new javax.swing.JFormattedTextField(formatNasc);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txtUF">
+    <Component class="javax.swing.JFormattedTextField" name="txtCEP">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtUF.setDocument(new wallet.aux.swing.text.TextFieldLimit(2));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatCEP = new javax.swing.text.MaskFormatter(&quot;#####-###&quot;);&#xa;&#xa;    txtCEP = new javax.swing.JFormattedTextField(formatCEP);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtRenda">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new wallet.aux.swing.text.JNumberFormatField()"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbbUF">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;AC&quot;, &quot;AL&quot;, &quot;AM&quot;, &quot;AP&quot;, &quot;BA&quot;, &quot;CE&quot;, &quot;DF&quot;, &quot;ES&quot;, &quot;GO&quot;, &quot;MA&quot;, &quot;MG&quot;, &quot;MS&quot;, &quot;MT&quot;, &quot;PA&quot;, &quot;PB&quot;, &quot;PE&quot;, &quot;PI&quot;, &quot;PR&quot;, &quot;RJ&quot;, &quot;RN&quot;, &quot;RO&quot;, &quot;RR&quot;, &quot;RS&quot;, &quot;SC&quot;, &quot;SE&quot;, &quot;SP&quot;, &quot;TO&quot; })" type="code"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
