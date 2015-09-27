@@ -70,7 +70,7 @@ public class Usuario
     {
         try
         {
-            this.nascimento = new SimpleDateFormat("dd/MM/yyyy").parse(nascimento);
+            setNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
         }
         catch (ParseException e)
         {
