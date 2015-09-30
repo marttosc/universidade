@@ -1,5 +1,8 @@
 package wallet.telas;
 
+import java.awt.Component;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 
 /**
@@ -27,6 +30,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         jmiUsuario = new javax.swing.JMenuItem();
         jmiCartao = new javax.swing.JMenuItem();
         jmnConsulta = new javax.swing.JMenu();
+        jmiUsuarioCons = new javax.swing.JMenuItem();
         jmiSaldo = new javax.swing.JMenuItem();
         jmiLimite = new javax.swing.JMenuItem();
 
@@ -59,6 +63,14 @@ public class TelaPrincipal extends javax.swing.JFrame
 
         jmnConsulta.setText("Consultas");
 
+        jmiUsuarioCons.setText("Usuários");
+        jmiUsuarioCons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuarioConsActionPerformed(evt);
+            }
+        });
+        jmnConsulta.add(jmiUsuarioCons);
+
         jmiSaldo.setText("Saldo");
         jmnConsulta.add(jmiSaldo);
 
@@ -79,6 +91,10 @@ public class TelaPrincipal extends javax.swing.JFrame
     private void jmiCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCartaoActionPerformed
         dskPrincipal.abrirCadastroCartao();
     }//GEN-LAST:event_jmiCartaoActionPerformed
+
+    private void jmiUsuarioConsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioConsActionPerformed
+        dskPrincipal.abrirConsultaUsuario();
+    }//GEN-LAST:event_jmiUsuarioConsActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -116,6 +132,7 @@ public class TelaPrincipal extends javax.swing.JFrame
     private javax.swing.JMenuItem jmiLimite;
     private javax.swing.JMenuItem jmiSaldo;
     private javax.swing.JMenuItem jmiUsuario;
+    private javax.swing.JMenuItem jmiUsuarioCons;
     private javax.swing.JMenu jmnCadastro;
     private javax.swing.JMenu jmnConsulta;
     private javax.swing.JMenuBar mnbMenu;

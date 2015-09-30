@@ -148,6 +148,21 @@ public class Usuario
         return Usuario.validarCPF(Usuario.removerMascaraCPF(new Usuario().getCPF()));
     }
     
+    public static boolean validarCPF(Object cpf)
+    {
+        try
+        {
+            if (cpf == null) return false;
+            
+            return Usuario.validarCPF(Usuario.removerMascaraCPF(cpf.toString()));
+        }
+        catch (InputMismatchException e)
+        {
+            return false;
+        }
+            
+    }
+    
     public static boolean validarCPF(String cpf)
     {
         if (cpf.equals("00000000000") || cpf.equals("11111111111") ||
@@ -222,5 +237,11 @@ public class Usuario
     public static String removerMascaraCPF(String cpf)
     {
         return cpf.replaceAll("[.\\-]", "");
+    }
+    
+    public static boolean cpf(String cpf)
+    {
+        return Usuario.removerMascaraCPF(cpf.trim()).length() > 6
+                && Usuario.validarCPF(Usuario.removerMascaraCPF(cpf.trim()));
     }
 }

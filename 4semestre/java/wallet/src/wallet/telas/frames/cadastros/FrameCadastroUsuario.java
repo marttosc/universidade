@@ -5,7 +5,9 @@
  */
 package wallet.telas.frames.cadastros;
 
+import java.awt.Color;
 import javax.swing.JDesktopPane;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.apache.commons.validator.routines.EmailValidator;
 import wallet.models.Usuario;
@@ -57,6 +59,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         txtCEP = new javax.swing.JFormattedTextField();
         txtRenda = new wallet.aux.swing.text.JNumberFormatField();
         cbbUF = new javax.swing.JComboBox();
+        lblExtraInfo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -106,6 +109,11 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         });
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
 
@@ -215,6 +223,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                 .addGap(37, 37, 37)
                                 .addComponent(txtRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblExtraInfo)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,11 +259,13 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRenda)
                     .addComponent(txtRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(lblExtraInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnAlterar)
@@ -290,6 +304,95 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCPFFocusLost
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if (validarCadastro())
+        {
+            mensagem("Cliente cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+    
+    private boolean validarCadastro()
+    {
+        if (!Usuario.validarCPF(txtCPF.getValue()))
+        {
+            mensagem("Informe um CPF", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtNascimento.getValue() == null)
+        {
+            mensagem("Informe a data de nascimento", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtNome.getText().trim().length() == 0)
+        {
+            mensagem("Informe o seu nome", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        // Não é necessário validar com Regex, pois se estiver errado ele apaga o campo.
+        if (txtEmail.getText().trim().length() == 0)
+        {
+            mensagem("Informe o seu e-mail", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtEndereco.getText().trim().length() == 0)
+        {
+            mensagem("Informe o seu endereço", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtBairro.getText().trim().length() == 0)
+        {
+            mensagem("Informe o seu bairro", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtCEP.getValue() == null)
+        {
+            mensagem("Informe um CEP", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (txtCidade.getText().trim().length() == 0)
+        {
+            mensagem("Informe a cidade", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        if (Double.parseDouble(txtRenda.getText().trim()
+                .replaceAll("\\.", "").replaceAll(",", ".")) < 700)
+        {
+            mensagem("Renda deve ser maior do que R$ 720,00", Color.RED, lblExtraInfo);
+            
+            return false;
+        }
+        
+        mensagem("", lblExtraInfo);
+
+        return true;
+    }
+    
+    private void mensagem(String msg, Color clr, JLabel lbl)
+    {
+        lbl.setText(msg);
+        lbl.setForeground(clr);
+    }
+    
+    private void mensagem(String msg, JLabel lbl)
+    {
+        mensagem(msg, Color.BLACK, lbl);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -303,6 +406,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
+    private javax.swing.JLabel lblExtraInfo;
     private javax.swing.JLabel lblNascimento;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblRenda;

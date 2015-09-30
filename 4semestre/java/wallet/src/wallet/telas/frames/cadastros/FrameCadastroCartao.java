@@ -31,7 +31,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        lstCartoes = new java.util.LinkedList<wallet.models.Usuario>();
+        lstCartoes = new java.util.LinkedList<wallet.models.Cartao>();
         lblCPF = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
         lblNomeTitular = new javax.swing.JLabel();
@@ -52,6 +52,8 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbCartoes = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox();
+
+        lstCartoes = org.jdesktop.observablecollections.ObservableCollections.observableList(lstCartoes);
 
         setClosable(true);
         setIconifiable(true);

@@ -4,7 +4,8 @@
   <NonVisualComponents>
     <Component class="java.util.List" name="lstCartoes">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new java.util.LinkedList&lt;wallet.models.Usuario&gt;()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new java.util.LinkedList&lt;wallet.models.Cartao&gt;()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lstCartoes = org.jdesktop.observablecollections.ObservableCollections.observableList(lstCartoes);"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
