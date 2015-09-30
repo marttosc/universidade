@@ -8,6 +8,8 @@ import java.util.InputMismatchException;
 /**
  * Modelo do usuário/cliente.
  * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class Usuario
 {

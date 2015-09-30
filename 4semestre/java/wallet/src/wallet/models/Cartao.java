@@ -1,6 +1,12 @@
 
 package wallet.models;
 
+/**
+ * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
+ */
+
 public abstract class Cartao
 {
     private String numero;

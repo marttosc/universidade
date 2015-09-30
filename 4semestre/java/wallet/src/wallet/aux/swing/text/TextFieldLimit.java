@@ -7,6 +7,8 @@ import javax.swing.text.PlainDocument;
 /**
  * Permite definir uma determinada quantia de caracteres.
  * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class TextFieldLimit extends PlainDocument
 {

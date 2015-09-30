@@ -10,6 +10,7 @@ import wallet.telas.frames.consultas.FrameConsultaUsuario;
  * Classe responsável pela área da trabalho da janela principal.
  * @author Gustavo Marttos
  * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class AreaDeTrabalho extends JDesktopPane
 {

@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Modelo para as bandeiras dos cartões
  * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class Bandeira
 {
