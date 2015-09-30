@@ -2,9 +2,9 @@
 
 Ainda trabalhando nisso...
 
-## A fazer
+## A fazer (Wallet)
 
 - [ ] Atalhos dos menus;
-- [ ] Fixação da tela;
+- [X] Fixação da tela;
 - [X] Centralizar a tela;
 - [X] Validar CPF e permitir somente números.
