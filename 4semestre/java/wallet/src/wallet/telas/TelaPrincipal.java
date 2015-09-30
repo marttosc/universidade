@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 /**
  * Tela principal para abertura da janela.
  * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class TelaPrincipal extends javax.swing.JFrame
 {

@@ -9,6 +9,7 @@ import wallet.telas.frames.cadastros.FrameCadastroUsuario;
  * Classe responsável pela área da trabalho da janela principal.
  * @author Gustavo Marttos
  * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class AreaDeTrabalho extends JDesktopPane
 {

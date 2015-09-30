@@ -5,6 +5,8 @@ import wallet.telas.TelaPrincipal;
 /**
  * Classe principal.
  * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class WalletPrincipal
 {

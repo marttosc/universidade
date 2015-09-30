@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package wallet.models;
 
 /**
- *
- * @author jordana
+ * @author Gustavo Marttos
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 public class Bandeira {
     
