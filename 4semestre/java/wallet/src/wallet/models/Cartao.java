@@ -7,62 +7,86 @@ package wallet.models;
  * @author Leandro Cazarini
  */
 
-public abstract class Cartao
+public class Cartao
 {
     private String numero;
     private int mesValidade;
     private int anoValidade;
-    private Bandeira bandeira;
+    private String bandeira;
     private Usuario cliente;
     private String cvc;
+    private String tipo;
 
-    protected String getNumero() {
+    public String getNumero()
+    {
         return numero;
     }
+    
 
-    protected void setNumero(String numero) {
+    public void setNumero(String numero)
+    {
         this.numero = numero;
     }
 
-    protected int getMesValidade() {
+    public int getMesValidade()
+    {
         return mesValidade;
     }
 
-    protected void setMesValidade(int mesValidade) {
+    public void setMesValidade(int mesValidade)
+    {
         this.mesValidade = mesValidade;
     }
 
-    protected int getAnoValidade() {
+    public int getAnoValidade()
+    {
         return anoValidade;
     }
 
-    protected void setAnoValidade(int anoValidade) {
+    public void setAnoValidade(int anoValidade)
+    {
         this.anoValidade = anoValidade;
     }
 
-    protected Bandeira getBandeira() {
+    public String getBandeira()
+    {
         return bandeira;
     }
 
-    protected void setBandeira(Bandeira bandeira) {
+    public void setBandeira(String bandeira)
+    {
         this.bandeira = bandeira;
     }
 
-    protected Usuario getCliente() {
+    public Usuario getCliente()
+    {
         return cliente;
     }
 
-    protected void setCliente(Usuario cliente) {
+    public void setCliente(Usuario cliente)
+    {
         this.cliente = cliente;
     }
 
-    protected String getCvc() {
+    public String getCvc()
+    {
         return cvc;
     }
 
-    protected void setCvc(String cvc) {
+    public void setCvc(String cvc)
+    {
         this.cvc = cvc;
     }
-
-    public abstract void passarCartao();
+    
+    public void setTipo(String tipo)
+    {
+        this.tipo = tipo;
+    }
+    
+    public String getTipo()
+    {
+        return this.tipo;
+    }
+    
+    public void passarCartao() {}
 }

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  * Modelo do usuário/cliente.
@@ -20,6 +21,8 @@ public class Usuario
     private String nome;
     
     private Date nascimento;
+    
+    private String email;
     
     private String endereco;
     
@@ -83,6 +86,16 @@ public class Usuario
     public Date getNascimento()
     {
         return this.nascimento;
+    }
+    
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+    
+    public String getEmail()
+    {
+        return this.email;
     }
     
     public void setEndereco(String endereco)       
@@ -245,5 +258,22 @@ public class Usuario
     {
         return Usuario.removerMascaraCPF(cpf.trim()).length() > 6
                 && Usuario.validarCPF(Usuario.removerMascaraCPF(cpf.trim()));
+    }
+    
+    public static boolean existeUsuario(String cpf)
+    {
+        List<Usuario> usuarios = wallet.telas.AreaDeTrabalho.getUsuarios();
+        
+        Usuario usuario = null;
+        
+        for (Usuario u : usuarios)
+        {
+            if (u.getCPF().equals(cpf))
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

@@ -6,7 +6,7 @@ package wallet.models;
  * @author Leandro Cazarini
  */
 
-public abstract class CartaoCredito extends Cartao
+public class CartaoCredito extends Cartao
 {
     private double limite;
     private double valor;

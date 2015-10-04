@@ -6,6 +6,7 @@
 package wallet.telas.frames.consultas;
 
 import javax.swing.JDesktopPane;
+import wallet.models.Usuario;
 import wallet.telas.AreaDeTrabalho;
 
 /**
@@ -29,9 +30,13 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        lblCPF = new javax.swing.JLabel();
-        txtCPF = new javax.swing.JFormattedTextField();
+        lstUsuarios = AreaDeTrabalho.getUsuarios();
+        spaUsuarios = new javax.swing.JScrollPane();
+        tbUsuarios = new javax.swing.JTable();
+
+        lstUsuarios = org.jdesktop.observablecollections.ObservableCollections.observableList(lstUsuarios);
 
         setClosable(true);
         setIconifiable(true);
@@ -56,17 +61,26 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        lblCPF.setText("CPF");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lstUsuarios, tbUsuarios);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${CPF}"));
+        columnBinding.setColumnName("CPF");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
+        columnBinding.setColumnName("Nome");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nascimento}"));
+        columnBinding.setColumnName("Nascimento");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${email}"));
+        columnBinding.setColumnName("Email");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${renda}"));
+        columnBinding.setColumnName("Renda");
+        columnBinding.setColumnClass(Double.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
 
-        try
-        {
-            javax.swing.text.MaskFormatter formatCPF = new javax.swing.text.MaskFormatter("###.###.###-##");
-
-            txtCPF = new javax.swing.JFormattedTextField(formatCPF);
-        }
-        catch (Exception e)
-        {
-        }
+        spaUsuarios.setViewportView(tbUsuarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,20 +88,18 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblCPF)
-                .addGap(56, 56, 56)
-                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addComponent(spaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPF)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addComponent(spaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,7 +112,9 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblCPF;
-    private javax.swing.JFormattedTextField txtCPF;
+    private java.util.List<Usuario> lstUsuarios;
+    private javax.swing.JScrollPane spaUsuarios;
+    private javax.swing.JTable tbUsuarios;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

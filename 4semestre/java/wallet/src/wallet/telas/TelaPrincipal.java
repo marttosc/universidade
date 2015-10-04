@@ -1,8 +1,5 @@
 package wallet.telas;
 
-import java.awt.Component;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 
 /**
@@ -31,10 +28,9 @@ public class TelaPrincipal extends javax.swing.JFrame
         jmnCadastro = new javax.swing.JMenu();
         jmiUsuario = new javax.swing.JMenuItem();
         jmiCartao = new javax.swing.JMenuItem();
+        jmiEstabelecimento = new javax.swing.JMenuItem();
         jmnConsulta = new javax.swing.JMenu();
         jmiUsuarioCons = new javax.swing.JMenuItem();
-        jmiSaldo = new javax.swing.JMenuItem();
-        jmiLimite = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Wallet!");
@@ -61,6 +57,14 @@ public class TelaPrincipal extends javax.swing.JFrame
         });
         jmnCadastro.add(jmiCartao);
 
+        jmiEstabelecimento.setText("Estabelecimento");
+        jmiEstabelecimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEstabelecimentoActionPerformed(evt);
+            }
+        });
+        jmnCadastro.add(jmiEstabelecimento);
+
         mnbMenu.add(jmnCadastro);
 
         jmnConsulta.setText("Consultas");
@@ -72,12 +76,6 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
         });
         jmnConsulta.add(jmiUsuarioCons);
-
-        jmiSaldo.setText("Saldo");
-        jmnConsulta.add(jmiSaldo);
-
-        jmiLimite.setText("Limites");
-        jmnConsulta.add(jmiLimite);
 
         mnbMenu.add(jmnConsulta);
 
@@ -97,6 +95,10 @@ public class TelaPrincipal extends javax.swing.JFrame
     private void jmiUsuarioConsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioConsActionPerformed
         dskPrincipal.abrirConsultaUsuario();
     }//GEN-LAST:event_jmiUsuarioConsActionPerformed
+
+    private void jmiEstabelecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEstabelecimentoActionPerformed
+        dskPrincipal.abrirCadastroEstabelecimento();
+    }//GEN-LAST:event_jmiEstabelecimentoActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -131,8 +133,7 @@ public class TelaPrincipal extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private wallet.telas.AreaDeTrabalho dskPrincipal;
     private javax.swing.JMenuItem jmiCartao;
-    private javax.swing.JMenuItem jmiLimite;
-    private javax.swing.JMenuItem jmiSaldo;
+    private javax.swing.JMenuItem jmiEstabelecimento;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem jmiUsuarioCons;
     private javax.swing.JMenu jmnCadastro;

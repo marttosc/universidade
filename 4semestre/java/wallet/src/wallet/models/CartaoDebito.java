@@ -5,7 +5,7 @@ package wallet.models;
  * @author Jordana Nogueira
  * @author Leandro Cazarini
  */
-public abstract class CartaoDebito extends Cartao
+public class CartaoDebito extends Cartao
 {
     private double saldo;
 

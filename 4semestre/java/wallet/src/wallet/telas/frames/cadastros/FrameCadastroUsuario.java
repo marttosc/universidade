@@ -3,9 +3,9 @@ package wallet.telas.frames.cadastros;
 
 import java.awt.Color;
 import javax.swing.JDesktopPane;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.apache.commons.validator.routines.EmailValidator;
+import wallet.aux.Helper;
 import wallet.models.Usuario;
 import wallet.telas.AreaDeTrabalho;
 
@@ -304,29 +304,52 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (validarCadastro())
         {
-            mensagem("Cliente cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
+            Usuario usuario = new Usuario();
+            
+            usuario.setCPF(txtCPF.getValue().toString());
+            usuario.setNascimento(txtNascimento.getValue().toString());
+            usuario.setNome(txtNome.getText());
+            usuario.setEmail(txtEmail.getText());
+            usuario.setEndereco(txtEndereco.getText());
+            usuario.setBairro(txtBairro.getText());
+            usuario.setCEP(txtCEP.getValue().toString());
+            usuario.setCidade(txtCidade.getText());
+            usuario.setUF(cbbUF.getSelectedItem().toString());
+            usuario.setRenda(Double.parseDouble(txtRenda.getText().trim()
+                .replaceAll("\\.", "").replaceAll(",", ".")));
+            
+            if (Usuario.existeUsuario(usuario.getCPF()))
+            {
+                Helper.mostrarMensagem("Cliente já existente!", Color.ORANGE, lblExtraInfo);
+            }
+            else
+            {
+                AreaDeTrabalho.setUsuario(usuario);
+                
+                Helper.mostrarMensagem("Cliente cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
+            }
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
-    
+
     private boolean validarCadastro()
     {
         if (!Usuario.validarCPF(txtCPF.getValue()))
         {
-            mensagem("Informe um CPF", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe um CPF", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtNascimento.getValue() == null)
         {
-            mensagem("Informe a data de nascimento", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe a data de nascimento", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtNome.getText().trim().length() == 0)
         {
-            mensagem("Informe o seu nome", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe o seu nome", Color.RED, lblExtraInfo);
             
             return false;
         }
@@ -334,35 +357,35 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         // Não é necessário validar com Regex, pois se estiver errado ele apaga o campo.
         if (txtEmail.getText().trim().length() == 0)
         {
-            mensagem("Informe o seu e-mail", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe o seu e-mail", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtEndereco.getText().trim().length() == 0)
         {
-            mensagem("Informe o seu endereço", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe o seu endereço", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtBairro.getText().trim().length() == 0)
         {
-            mensagem("Informe o seu bairro", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe o seu bairro", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtCEP.getValue() == null)
         {
-            mensagem("Informe um CEP", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe um CEP", Color.RED, lblExtraInfo);
             
             return false;
         }
         
         if (txtCidade.getText().trim().length() == 0)
         {
-            mensagem("Informe a cidade", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Informe a cidade", Color.RED, lblExtraInfo);
             
             return false;
         }
@@ -370,25 +393,15 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         if (Double.parseDouble(txtRenda.getText().trim()
                 .replaceAll("\\.", "").replaceAll(",", ".")) < 700)
         {
-            mensagem("Renda deve ser maior do que R$ 720,00", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Renda deve ser maior do que R$ 720,00",
+                    Color.RED, lblExtraInfo);
             
             return false;
         }
         
-        mensagem("", lblExtraInfo);
+        Helper.mostrarMensagem("", lblExtraInfo);
 
         return true;
-    }
-    
-    private void mensagem(String msg, Color clr, JLabel lbl)
-    {
-        lbl.setText(msg);
-        lbl.setForeground(clr);
-    }
-    
-    private void mensagem(String msg, JLabel lbl)
-    {
-        mensagem(msg, Color.BLACK, lbl);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

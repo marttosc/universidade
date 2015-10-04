@@ -1,8 +1,12 @@
 package wallet.telas;
 
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import wallet.models.Usuario;
 import wallet.telas.frames.cadastros.FrameCadastroCartao;
+import wallet.telas.frames.cadastros.FrameCadastroEstabelecimento;
 import wallet.telas.frames.cadastros.FrameCadastroUsuario;
 import wallet.telas.frames.consultas.FrameConsultaUsuario;
 
@@ -14,10 +18,40 @@ import wallet.telas.frames.consultas.FrameConsultaUsuario;
  */
 public class AreaDeTrabalho extends JDesktopPane
 {
-    FrameCadastroUsuario cadastrarUsuario = null;
-    FrameCadastroCartao cadastrarCartao = null;
+    private static List<Usuario> usuarios = new LinkedList<>();
+            
+    private FrameCadastroUsuario cadastrarUsuario = null;
+    private FrameCadastroCartao cadastrarCartao = null;
+    private FrameCadastroEstabelecimento cadastrarEstabelecimento = null;
     
-    FrameConsultaUsuario consultarUsuario = null;
+    private FrameConsultaUsuario consultarUsuario = null;
+    
+    public static List<Usuario> getUsuarios()
+    {
+        return usuarios;
+    }
+    
+    public static void setUsuario(Usuario usuario)
+    {
+        usuarios.add(usuario);
+    }
+    
+    public static Usuario getUsuario(String cpf)
+    {
+        Usuario usuario = null;
+        
+        for (Usuario u : getUsuarios())
+        {
+            if (u.getCPF().equals(cpf))
+            {
+                usuario = u;
+                
+                break;
+            }
+        }
+        
+        return usuario;
+    }
     
     public void abrirCadastroUsuario()
     {
@@ -60,6 +94,25 @@ public class AreaDeTrabalho extends JDesktopPane
         cadastrarCartao = null;
     }
     
+    public void abrirCadastroEstabelecimento()
+    {
+        if (cadastrarEstabelecimento == null)
+        {
+            cadastrarEstabelecimento = new FrameCadastroEstabelecimento();
+            
+            cadastrarEstabelecimento.setVisible(true);
+            
+            add(cadastrarEstabelecimento);
+            
+            centralizar(cadastrarEstabelecimento);
+        }
+    }
+    
+    public void fecharCadastroEstabelecimento()
+    {
+        cadastrarEstabelecimento.dispose();
+        cadastrarEstabelecimento = null;
+    }
     
     public void abrirConsultaUsuario()
     {

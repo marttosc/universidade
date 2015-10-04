@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="java.util.List" name="lstUsuarios">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="AreaDeTrabalho.getUsuarios()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lstUsuarios = org.jdesktop.observablecollections.ObservableCollections.observableList(lstUsuarios);"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Usuario&gt;"/>
+      </AuxValues>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
@@ -35,10 +44,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblCPF" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-              <Component id="txtCPF" min="-2" pref="110" max="-2" attributes="0"/>
-              <EmptySpace pref="453" max="32767" attributes="0"/>
+              <Component id="spaUsuarios" pref="634" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,25 +53,42 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCPF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="284" max="32767" attributes="0"/>
+              <Component id="spaUsuarios" pref="286" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblCPF">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CPF"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txtCPF">
+    <Container class="javax.swing.JScrollPane" name="spaUsuarios">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatCPF = new javax.swing.text.MaskFormatter(&quot;###.###.###-##&quot;);&#xa;&#xa;    txtCPF = new javax.swing.JFormattedTextField(formatCPF);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-    </Component>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tbUsuarios">
+          <BindingProperties>
+            <BindingProperty name="elements" source="lstUsuarios" target="tbUsuarios" targetPath="elements" updateStrategy="0" immediately="true">
+              <Subbinding sourcePath="${CPF}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${nome}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${nascimento}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${email}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${renda}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
+              </Subbinding>
+            </BindingProperty>
+          </BindingProperties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
