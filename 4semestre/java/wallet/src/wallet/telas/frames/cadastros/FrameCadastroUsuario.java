@@ -1,4 +1,3 @@
-
 package wallet.telas.frames.cadastros;
 
 import java.awt.Color;
@@ -419,6 +418,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
 
     private void limparFormulario()
     {
+        
     }
     
     private boolean validarCadastro()

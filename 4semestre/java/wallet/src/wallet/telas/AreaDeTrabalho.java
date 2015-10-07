@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import wallet.models.Estabelecimento;
 import wallet.models.Usuario;
 import wallet.telas.frames.cadastros.FrameCadastroCartao;
 import wallet.telas.frames.cadastros.FrameCadastroEstabelecimento;
@@ -19,6 +20,7 @@ import wallet.telas.frames.consultas.FrameConsultaUsuario;
 public class AreaDeTrabalho extends JDesktopPane
 {
     private static List<Usuario> usuarios = new LinkedList<>();
+    private static List<Estabelecimento> estabelecimento = new LinkedList<>();
             
     private FrameCadastroUsuario cadastrarUsuario = null;
     private FrameCadastroCartao cadastrarCartao = null;
@@ -70,6 +72,35 @@ public class AreaDeTrabalho extends JDesktopPane
         }
         
         return usuario;
+    }
+    
+    
+    public static List<Estabelecimento> getEstabelecimento()
+    {
+        return estabelecimento;
+    }
+    
+    public static void setEstabelecimento(Estabelecimento est)
+    {
+        estabelecimento.add((Estabelecimento) estabelecimento);
+    }
+    
+    public static Estabelecimento getEstabelecimento(String cnpj)
+    {
+        Estabelecimento est = null;
+        
+        for (Estabelecimento e : getEstabelecimento())
+        {
+            if (e.getCnpj().equals(cnpj))
+            {
+                estabelecimento = (List<Estabelecimento>) e;
+                
+                break;
+            }
+        }
+        
+        return (Estabelecimento) estabelecimento;
+    
     }
     
     public void abrirCadastroUsuario(Usuario user)
