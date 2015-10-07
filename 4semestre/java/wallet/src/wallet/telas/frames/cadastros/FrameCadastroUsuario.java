@@ -2,6 +2,8 @@
 package wallet.telas.frames.cadastros;
 
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -15,12 +17,51 @@ import wallet.telas.AreaDeTrabalho;
  * @author Leandro Cazarini
  */
 public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
+    
+    private Usuario _usuario = null;
 
     /**
      * Creates new form FrameCadastroUsuario
      */
     public FrameCadastroUsuario() {
         initComponents();
+        
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnCadastrar.setEnabled(true);
+        
+        setTitle("Cadastro de Usuários");
+    }
+    
+    public FrameCadastroUsuario(Usuario user)
+    {
+        this();
+        
+        preencherAlterar(user);
+        
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+        btnCadastrar.setEnabled(false);
+        
+        setTitle("Edição de Usuários");
+        
+        _usuario = user;
+    }
+    
+    private void preencherAlterar(Usuario user)
+    {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        txtCPF.setValue(user.getCPF());
+        txtNome.setText(user.getNome());
+        txtNascimento.setValue(df.format(user.getNascimento()));
+        txtEmail.setText(user.getEmail());
+        txtEndereco.setText(user.getEndereco());
+        txtBairro.setText(user.getBairro());
+        txtCEP.setValue(user.getCEP());
+        txtCidade.setText(user.getCidade());
+        cbbUF.setSelectedItem(user.getUF());
+        txtRenda.setText(Double.toString(user.getRenda()));
     }
 
     /**
@@ -49,7 +90,6 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         txtCPF = new javax.swing.JFormattedTextField();
         txtNascimento = new javax.swing.JFormattedTextField();
@@ -113,10 +153,18 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         });
 
         btnAlterar.setText("Alterar");
-
-        btnBuscar.setText("Buscar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         try
         {
@@ -210,8 +258,6 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnExcluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnCadastrar)
@@ -266,7 +312,6 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnAlterar)
-                    .addComponent(btnBuscar)
                     .addComponent(btnExcluir))
                 .addContainerGap())
         );
@@ -288,9 +333,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
-        if (Usuario.removerMascaraCPF(txtCPF.getText().trim()).length() > 6)
+        if (Helper.removerMascara(txtCPF.getText().trim()).length() > 6)
         {
-            if (!Usuario.validarCPF(Usuario.removerMascaraCPF(txtCPF.getText().trim())))
+            if (_usuario == null
+                    && !Helper.validarCPF(Helper.removerMascara(txtCPF.getText().trim())))
             {
                 JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro",
                                         JOptionPane.ERROR_MESSAGE);
@@ -331,9 +377,53 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (validarCadastro())
+        {
+            if (!Usuario.existeUsuario(txtCPF.getValue().toString()))
+            {
+                Helper.mostrarMensagem("Cliente não existente!", Color.RED, lblExtraInfo);
+            }
+            else
+            {
+                Usuario usuario = _usuario;
+            
+                usuario.setCPF(txtCPF.getValue().toString());
+                usuario.setNascimento(txtNascimento.getValue().toString());
+                usuario.setNome(txtNome.getText());
+                usuario.setEmail(txtEmail.getText());
+                usuario.setEndereco(txtEndereco.getText());
+                usuario.setBairro(txtBairro.getText());
+                usuario.setCEP(txtCEP.getValue().toString());
+                usuario.setCidade(txtCidade.getText());
+                usuario.setUF(cbbUF.getSelectedItem().toString());
+                usuario.setRenda(Double.parseDouble(txtRenda.getText().trim()
+                    .replaceAll("\\.", "").replaceAll(",", ".")));
+                
+                Helper.mostrarMensagem("Cliente alterado com sucesso!", Color.GREEN, lblExtraInfo);
+                
+                setTitle("Cadastro de Usuários");
+                
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+                btnCadastrar.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        AreaDeTrabalho.getUsuarios().remove(_usuario);
+        
+        Helper.mostrarMensagem("Cliente removido!", Color.RED, lblExtraInfo);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void limparFormulario()
+    {
+    }
+    
     private boolean validarCadastro()
     {
-        if (!Usuario.validarCPF(txtCPF.getValue()))
+        if (!Helper.validarCPF(txtCPF.getValue()))
         {
             Helper.mostrarMensagem("Informe um CPF", Color.RED, lblExtraInfo);
             
@@ -406,7 +496,6 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox cbbUF;

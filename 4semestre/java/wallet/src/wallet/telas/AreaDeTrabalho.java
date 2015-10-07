@@ -26,6 +26,25 @@ public class AreaDeTrabalho extends JDesktopPane
     
     private FrameConsultaUsuario consultarUsuario = null;
     
+    // DEBUG. REMOVER, PFVR. :D
+    public AreaDeTrabalho()
+    {
+        Usuario usuario = new Usuario();
+        
+        usuario.setCPF("389.593.038-52");
+        usuario.setNascimento("01/11/1996");
+        usuario.setNome("Gustavo Marttos");
+        usuario.setEmail("marttosc@gmail.com");
+        usuario.setEndereco("Rua do Marttos");
+        usuario.setBairro("Bairro Tika");
+        usuario.setCEP("00000-000");
+        usuario.setCidade("Cidade Tititika");
+        usuario.setUF("SP");
+        usuario.setRenda(39033.33);
+        
+        setUsuario(usuario);
+    }
+    
     public static List<Usuario> getUsuarios()
     {
         return usuarios;
@@ -53,11 +72,18 @@ public class AreaDeTrabalho extends JDesktopPane
         return usuario;
     }
     
-    public void abrirCadastroUsuario()
+    public void abrirCadastroUsuario(Usuario user)
     {
         if (cadastrarUsuario == null)
         {
-            cadastrarUsuario = new FrameCadastroUsuario();
+            if (user == null)
+            {
+                cadastrarUsuario = new FrameCadastroUsuario();
+            }
+            else
+            {
+                cadastrarUsuario = new FrameCadastroUsuario(user);
+            }
             
             cadastrarUsuario.setVisible(true);
             
@@ -65,6 +91,11 @@ public class AreaDeTrabalho extends JDesktopPane
             
             centralizar(cadastrarUsuario);
         }
+    }
+    
+    public void abrirCadastroUsuario()
+    {
+        abrirCadastroUsuario(null);
     }
     
     public void fecharCadastroUsuario()
@@ -116,6 +147,11 @@ public class AreaDeTrabalho extends JDesktopPane
     
     public void abrirConsultaUsuario()
     {
+        if (cadastrarUsuario != null)
+        {
+            fecharCadastroUsuario();
+        }
+        
         if (consultarUsuario == null)
         {
             consultarUsuario = new FrameConsultaUsuario();

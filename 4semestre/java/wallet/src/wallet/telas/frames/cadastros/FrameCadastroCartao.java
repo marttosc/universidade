@@ -160,9 +160,9 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
         columnBinding.setColumnName("Numero");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliente}"));
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliente.nome}"));
         columnBinding.setColumnName("Cliente");
-        columnBinding.setColumnClass(wallet.models.Usuario.class);
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${bandeira}"));
         columnBinding.setColumnName("Bandeira");
         columnBinding.setColumnClass(String.class);
@@ -174,7 +174,6 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-
         jScrollPane1.setViewportView(tblCartoes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,7 +316,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
 
     private boolean validarCadastro()
     {
-        if (!Usuario.validarCPF(txtCPF.getValue()) || txtNome.getText().trim().equals(""))
+        if (!Helper.validarCPF(txtCPF.getValue()) || txtNome.getText().trim().equals(""))
         {
             Helper.mostrarMensagem("Informe um CPF", Color.RED, lblExtraInfo);
             
