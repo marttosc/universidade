@@ -22,7 +22,7 @@ public class Helper
     
     public static String removerMascara(String text)
     {
-        return text.replaceAll("[.\\-]", "");
+        return text.replaceAll("[.\\-/]", "");
     }
     
     public static boolean validarCPF(String cpf)

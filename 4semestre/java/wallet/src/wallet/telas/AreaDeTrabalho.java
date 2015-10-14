@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import wallet.models.Cartao;
 import wallet.models.Estabelecimento;
 import wallet.models.Usuario;
 import wallet.telas.frames.cadastros.FrameCadastroCartao;
@@ -20,24 +21,24 @@ import wallet.telas.frames.consultas.FrameConsultaUsuario;
 public class AreaDeTrabalho extends JDesktopPane
 {
     private static List<Usuario> usuarios = new LinkedList<>();
-    private static List<Estabelecimento> estabelecimento = new LinkedList<>();
+    private static List<Estabelecimento> estabelecimentos = new LinkedList<>();
+    private static List<Cartao> cartoes = new LinkedList<>();
             
     private FrameCadastroUsuario cadastrarUsuario = null;
     private FrameCadastroCartao cadastrarCartao = null;
     private FrameCadastroEstabelecimento cadastrarEstabelecimento = null;
     
     private FrameConsultaUsuario consultarUsuario = null;
-    
-    // DEBUG. REMOVER, PFVR. :D
+
     public AreaDeTrabalho()
     {
         Usuario usuario = new Usuario();
         
-        usuario.setCPF("389.593.038-52");
-        usuario.setNascimento("01/11/1996");
-        usuario.setNome("Gustavo Marttos");
-        usuario.setEmail("marttosc@gmail.com");
-        usuario.setEndereco("Rua do Marttos");
+        usuario.setCPF("698.571.185-50");
+        usuario.setNascimento("01/01/2001");
+        usuario.setNome("Bob Louco");
+        usuario.setEmail("dragon@bol.com.br");
+        usuario.setEndereco("Rua do Bob");
         usuario.setBairro("Bairro Tika");
         usuario.setCEP("00000-000");
         usuario.setCidade("Cidade Tititika");
@@ -75,31 +76,59 @@ public class AreaDeTrabalho extends JDesktopPane
     }
     
     
-    public static List<Estabelecimento> getEstabelecimento()
+    public static List<Estabelecimento> getEstabelecimentos()
     {
-        return estabelecimento;
+        return estabelecimentos;
     }
     
     public static void setEstabelecimento(Estabelecimento est)
     {
-        estabelecimento.add((Estabelecimento) estabelecimento);
+        estabelecimentos.add(est);
     }
     
     public static Estabelecimento getEstabelecimento(String cnpj)
     {
         Estabelecimento est = null;
         
-        for (Estabelecimento e : getEstabelecimento())
+        for (Estabelecimento e : getEstabelecimentos())
         {
             if (e.getCnpj().equals(cnpj))
             {
-                estabelecimento = (List<Estabelecimento>) e;
+                est = e;
                 
                 break;
             }
         }
         
-        return (Estabelecimento) estabelecimento;
+        return est;
+    
+    }
+    
+    public static List<Cartao> getCartoes()
+    {
+        return cartoes;
+    }
+    
+    public static void setCartao(Cartao card)
+    {
+        cartoes.add(card);
+    }
+    
+    public static Cartao getCartao(String numero)
+    {
+        Cartao card = null;
+        
+        for (Cartao c : getCartoes())
+        {
+            if (c.getNumero().equals(numero))
+            {
+                card = c;
+                
+                break;
+            }
+        }
+        
+        return card;
     
     }
     

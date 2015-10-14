@@ -35,7 +35,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        lstCartoes = new LinkedList<>();
+        lstCartoes = AreaDeTrabalho.getCartoes();
         lblCPF = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
         lblNomeTitular = new javax.swing.JLabel();
@@ -119,6 +119,11 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         lblCodigoVerificaçao.setText("CVC");
 
         btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +133,11 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         });
 
         btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
 
         cmbxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crédito", "Débito" }));
 
@@ -158,7 +168,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         columnBinding.setColumnName("Tipo");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
-        columnBinding.setColumnName("Numero");
+        columnBinding.setColumnName("Número");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliente.nome}"));
         columnBinding.setColumnName("Cliente");
@@ -167,10 +177,10 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         columnBinding.setColumnName("Bandeira");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${mesValidade}"));
-        columnBinding.setColumnName("Mes Validade");
+        columnBinding.setColumnName("Mês Val.");
         columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${anoValidade}"));
-        columnBinding.setColumnName("Ano Validade");
+        columnBinding.setColumnName("Ano Val.");
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -287,30 +297,85 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (validarCadastro())
         {
-            Cartao cartao;
-            
-            if (cmbxTipo.getSelectedItem().toString().toLowerCase().equals("débito"))
+            // Se o botão alterar está habilitado, é porque é cadastro.
+            if (btAlterar.isEnabled())
             {
-                cartao = new CartaoDebito();
+                Cartao cartao;
+            
+                if (cmbxTipo.getSelectedItem().toString().toLowerCase().equals("débito"))
+                {
+                    cartao = new CartaoDebito();
+                }
+                else
+                {
+                    cartao = new CartaoCredito();
+                }
+
+                String cpf = txtCPF.getText().trim();
+
+                cartao.setTipo(cmbxTipo.getSelectedItem().toString());
+                cartao.setCliente(AreaDeTrabalho.getUsuario(cpf));
+                cartao.setNumero(txtNumeroCartao.getValue().toString());
+                cartao.setCvc(txtCVC.getValue().toString());
+                cartao.setBandeira(cmbxBandeira.getSelectedItem().toString());
+                cartao.setMesValidade(Integer.parseInt(cmbxDataMes.getSelectedItem()
+                        .toString()));
+                cartao.setAnoValidade(Integer.parseInt(cmbxdataAno.getSelectedItem()
+                        .toString()));
+
+                if (cartao instanceof CartaoCredito)
+                {
+                    ((CartaoCredito) cartao).setLimite(Double.parseDouble(txtLimite
+                            .getText().trim().replaceAll("\\.", "").replaceAll(",", ".")));
+                }
+                else if (cartao instanceof CartaoDebito)
+                {
+                    ((CartaoDebito) cartao).setSaldo(Double.parseDouble(txtLimite
+                            .getText().trim().replaceAll("\\.", "").replaceAll(",", ".")));
+                }
+
+                if (!Cartao.existeCartao(cartao.getNumero()))
+                {
+                    lstCartoes.add(cartao);
+                
+                    Helper.mostrarMensagem("Cartão cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
+                }
+                else
+                {
+                    Helper.mostrarMensagem("Cartão existente!", Color.RED, lblExtraInfo);
+                }
             }
             else
             {
-                cartao = new CartaoCredito();
+                // Botão alterar foi ativado, logo, vai alterar o cartão.
+                
+                Cartao card = lstCartoes.get(tblCartoes.getSelectedRow());
+                
+                String cpf = txtCPF.getText().trim();
+
+                card.setTipo(cmbxTipo.getSelectedItem().toString());
+                card.setCliente(AreaDeTrabalho.getUsuario(cpf));
+                card.setNumero(txtNumeroCartao.getValue().toString());
+                card.setCvc(txtCVC.getValue().toString());
+                card.setBandeira(cmbxBandeira.getSelectedItem().toString());
+                card.setMesValidade(Integer.parseInt(cmbxDataMes.getSelectedItem()
+                        .toString()));
+                card.setAnoValidade(Integer.parseInt(cmbxdataAno.getSelectedItem()
+                        .toString()));
+
+                if (card instanceof CartaoCredito)
+                {
+                    ((CartaoCredito) card).setLimite(Double.parseDouble(txtLimite
+                            .getText().trim().replaceAll("\\.", "").replaceAll(",", ".")));
+                }
+                else if (card instanceof CartaoDebito)
+                {
+                    ((CartaoDebito) card).setSaldo(Double.parseDouble(txtLimite
+                            .getText().trim().replaceAll("\\.", "").replaceAll(",", ".")));
+                }
+                
+                Helper.mostrarMensagem("Cartão alterado com sucesso!", Color.ORANGE, lblExtraInfo);
             }
-            
-            String cpf = txtCPF.getText().trim();
-            
-            cartao.setTipo(cmbxTipo.getSelectedItem().toString());
-            cartao.setCliente(AreaDeTrabalho.getUsuario(cpf));
-            cartao.setNumero(txtNumeroCartao.getValue().toString());
-            cartao.setCvc(txtCVC.getValue().toString());
-            cartao.setBandeira(cmbxBandeira.getSelectedItem().toString());
-            cartao.setMesValidade(Integer.parseInt(cmbxDataMes.getSelectedItem()
-                    .toString()));
-            cartao.setAnoValidade(Integer.parseInt(cmbxdataAno.getSelectedItem()
-                    .toString()));
-            
-            lstCartoes.add(cartao);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -357,7 +422,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
         String cpf = txtCPF.getText().trim();
-        
+
         if (Usuario.existeUsuario(cpf))
         {
             Usuario user = AreaDeTrabalho.getUsuario(cpf);
@@ -374,6 +439,72 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCPFFocusLost
 
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        if (tblCartoes.getSelectedRow() > -1)
+        {
+            btAlterar.setEnabled(false);
+            btExcluir.setEnabled(false);
+            
+            Cartao card = lstCartoes.get(tblCartoes.getSelectedRow());
+            
+            txtCPF.setValue(card.getCliente().getCPF());
+            txtNome.setText(card.getCliente().getNome());
+            txtNome.setEnabled(false);
+            
+            cmbxTipo.setSelectedItem(card.getTipo());
+            cmbxBandeira.setSelectedItem(card.getBandeira());
+            txtNumeroCartao.setValue(card.getNumero());
+            
+            // Se o mês for menor que 10, coloca um 0 na frente.
+            // Serve para tratamento no combobox para selecionar o objeto do mês.
+            if (card.getMesValidade() < 10)
+            {
+                cmbxDataMes.setSelectedItem("0" + Integer.toString(card.getMesValidade()));
+            }
+            else
+            {
+                cmbxDataMes.setSelectedItem(Integer.toString(card.getMesValidade()));
+            }
+            
+            cmbxdataAno.setSelectedItem(Integer.toString(card.getAnoValidade()));
+            
+            txtCVC.setValue(card.getCvc());
+            
+            // Cartão de crédito ou débito tem diferenças.
+            if (card instanceof CartaoDebito)
+            {
+                txtLimite.setText(Double.toString(((CartaoDebito) card).getSaldo()));
+            }
+            else if (card instanceof CartaoCredito)
+            {
+                txtLimite.setText(Double.toString(((CartaoCredito) card).getLimite()));
+            }
+            
+            Helper.mostrarMensagem("", lblExtraInfo);
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        lstCartoes.remove(tblCartoes.getSelectedRow());
+        
+        Helper.mostrarMensagem("Cartão excluído!", Color.RED, lblExtraInfo);
+        
+        limparFormulario();
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void limparFormulario()
+    {
+        txtCPF.setValue("");
+        txtNome.setText("");
+        txtNome.setEnabled(true);
+        cmbxTipo.setSelectedIndex(0);
+        txtNumeroCartao.setValue("");
+        cmbxBandeira.setSelectedIndex(0);
+        cmbxDataMes.setSelectedIndex(0);
+        cmbxdataAno.setSelectedIndex(0);
+        txtCVC.setValue("");
+        txtLimite.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;

@@ -406,6 +406,8 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                 btnAlterar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 btnCadastrar.setEnabled(true);
+                
+                limparFormulario();
             }
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -414,11 +416,28 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         AreaDeTrabalho.getUsuarios().remove(_usuario);
         
         Helper.mostrarMensagem("Cliente removido!", Color.RED, lblExtraInfo);
+        
+        setTitle("Cadastro de Usuários");
+                
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnCadastrar.setEnabled(true);
+        
+        limparFormulario();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void limparFormulario()
     {
-        
+        txtCPF.setValue("");
+        txtNome.setText("");
+        txtNascimento.setValue("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtBairro.setText("");
+        txtCEP.setValue("");
+        txtCidade.setText("");
+        cbbUF.setSelectedItem("");
+        txtRenda.setText("");
     }
     
     private boolean validarCadastro()

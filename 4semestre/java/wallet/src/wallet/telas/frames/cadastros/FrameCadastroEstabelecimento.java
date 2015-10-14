@@ -1,13 +1,10 @@
 package wallet.telas.frames.cadastros;
 
 import java.awt.Color;
-import java.util.LinkedList;
 import javax.swing.JDesktopPane;
 import wallet.aux.Helper;
 import wallet.models.Estabelecimento;
 import wallet.telas.AreaDeTrabalho;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * @author Gustavo Marttos
@@ -18,11 +15,13 @@ import java.awt.event.FocusEvent;
 public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
 
     private Estabelecimento _estabelecimento = null;
+
     /**
      * Creates new form FrameCadastroEstabelecimento
      */
     public FrameCadastroEstabelecimento() {
         initComponents();
+
         btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
         btSalvar.setEnabled(true);
@@ -52,7 +51,8 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        lstEstabelecimento = new LinkedList<Estabelecimento>();
+        lstEstabelecimento = AreaDeTrabalho.getEstabelecimentos();
+        lstEstabelecimento = org.jdesktop.observablecollections.ObservableCollections.observableList(lstEstabelecimento);
         lblCNPJ = new javax.swing.JLabel();
         lblNomeEmpresa = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
@@ -75,8 +75,6 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
         btAlterar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         lblExtraInfo = new javax.swing.JLabel();
-
-        lstEstabelecimento = org.jdesktop.observablecollections.ObservableCollections.observableList(lstEstabelecimento);
 
         setClosable(true);
         setIconifiable(true);
@@ -179,7 +177,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
 
     org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lstEstabelecimento, tbEstabelecimento);
     org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cnpj}"));
-    columnBinding.setColumnName("Cnpj");
+    columnBinding.setColumnName("CNPJ");
     columnBinding.setColumnClass(String.class);
     columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
     columnBinding.setColumnName("Nome");
@@ -188,14 +186,13 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     columnBinding.setColumnName("Cidade");
     columnBinding.setColumnClass(String.class);
     columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${uf}"));
-    columnBinding.setColumnName("Uf");
+    columnBinding.setColumnName("UF");
     columnBinding.setColumnClass(String.class);
     columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${telefone}"));
     columnBinding.setColumnName("Telefone");
     columnBinding.setColumnClass(String.class);
     bindingGroup.addBinding(jTableBinding);
     jTableBinding.bind();
-
     jScrollPane1.setViewportView(tbEstabelecimento);
 
     btExcluir.setText("Excluir");
@@ -226,7 +223,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblNomeEmpresa)
@@ -236,37 +233,38 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
                         .addComponent(lblTelefone))
                     .addGap(19, 19, 19)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNome)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(txtEndereco)
+                            .addGap(24, 24, 24)
+                            .addComponent(lblBairro)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(lblCEP)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtEndereco))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblBairro)
-                                .addComponent(lblUF))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblExtraInfo)))
-                        .addComponent(txtNome)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblUF)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cbbUF, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(0, 0, Short.MAX_VALUE))))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(btExcluir)
-                    .addGap(18, 18, 18)
-                    .addComponent(btAlterar)
-                    .addGap(18, 18, 18)
-                    .addComponent(btSalvar)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btExcluir)
+                            .addGap(18, 18, 18)
+                            .addComponent(btAlterar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btSalvar))
+                        .addComponent(lblExtraInfo, javax.swing.GroupLayout.Alignment.TRAILING))))
             .addContainerGap())
     );
     layout.setVerticalGroup(
@@ -298,7 +296,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(lblTelefone)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblExtraInfo)
             .addGap(18, 18, 18)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,7 +310,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
 
     bindingGroup.bind();
 
-    setBounds(0, 0, 660, 468);
+    setBounds(0, 0, 660, 435);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formCadastroEstabelecimentoClose(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formCadastroEstabelecimentoClose
@@ -335,17 +333,16 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
             estabelecimento.setUf(cbbUF.getSelectedItem().toString());
             estabelecimento.setTelefone(txtTelefone.getValue().toString());
                 
-             if (Estabelecimento.existeEstabelecimento(estabelecimento.getCnpj()))
+            if (Estabelecimento.existeEstabelecimento(estabelecimento.getCnpj()))
             {
                 Helper.mostrarMensagem("Estabelecimento já existente!", Color.ORANGE, lblExtraInfo);
             }
             else
             {
-                AreaDeTrabalho.setEstabelecimento(estabelecimento);
+                lstEstabelecimento.add(estabelecimento);
                 
                 Helper.mostrarMensagem("Estabelecimento cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
             }
-             lstEstabelecimento.add(estabelecimento);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -381,7 +378,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        AreaDeTrabalho.getEstabelecimento().remove(_estabelecimento);
+        AreaDeTrabalho.getEstabelecimentos().remove(_estabelecimento);
         
         Helper.mostrarMensagem("Estabelecimento removido!", Color.RED, lblExtraInfo);
     }//GEN-LAST:event_btExcluirActionPerformed

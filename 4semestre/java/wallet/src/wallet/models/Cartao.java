@@ -1,6 +1,8 @@
 
 package wallet.models;
 
+import java.util.List;
+
 /**
  * @author Gustavo Marttos
  * @author Jordana Nogueira
@@ -89,4 +91,19 @@ public class Cartao
     }
     
     public void passarCartao() {}
+    
+    public static boolean existeCartao(String numero)
+    {
+        List<Cartao> cartoes = wallet.telas.AreaDeTrabalho.getCartoes();
+        
+        for (Cartao c : cartoes)
+        {
+            if (c.getNumero().equals(numero))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

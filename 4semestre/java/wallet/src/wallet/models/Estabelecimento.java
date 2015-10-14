@@ -1,4 +1,3 @@
-
 package wallet.models;
 
 import java.util.List;
@@ -19,88 +18,104 @@ public class Estabelecimento {
     private String cep;
     private String uf;
     private String telefone;
-
     
-    
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public String getCnpj() {
+    public String getCnpj()
+    {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(String cnpj)
+    {
         this.cnpj = cnpj;
     }
 
-    public String getNome() {
+    public String getNome()
+    {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome)
+    {
         this.nome = nome;
     }
 
-    public String getEndereco() {
+    public String getEndereco()
+    {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(String endereco)
+    {
         this.endereco = endereco;
     }
 
-    public String getBairro() {
+    public String getBairro()
+    {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public void setBairro(String bairro)
+    {
         this.bairro = bairro;
     }
 
-    public String getCidade() {
+    public String getCidade()
+    {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(String cidade)
+    {
         this.cidade = cidade;
     }
 
-    public String getCep() {
+    public String getCep()
+    {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(String cep)
+    {
         this.cep = cep;
     }
 
-    public String getUf() {
+    public String getUf()
+    {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public void setUf(String uf)
+    {
         this.uf = uf;
     }
 
-    public String getTelefone() {
+    public String getTelefone()
+    {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(String telefone)
+    {
         this.telefone = telefone;
     }
     
     public static boolean existeEstabelecimento(String cnpj)
     {
-        List<Estabelecimento> estabelecimento = wallet.telas.AreaDeTrabalho.getEstabelecimento();
+        List<Estabelecimento> estabelecimento = wallet.telas.AreaDeTrabalho.getEstabelecimentos();
         
         for (Estabelecimento e : estabelecimento)
         {
-            if (e.getCnpj() .equals(cnpj))
+            if (e.getCnpj().equals(cnpj))
             {
                 return true;
             }

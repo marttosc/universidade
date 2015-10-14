@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="java.util.List" name="lstCartoes">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LinkedList&lt;&gt;()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="AreaDeTrabalho.getCartoes()"/>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lstCartoes = org.jdesktop.observablecollections.ObservableCollections.observableList(lstCartoes);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;wallet.models.Cartao&gt;"/>
       </AuxValues>
@@ -263,6 +263,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btExcluirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btSalvar">
       <Properties>
@@ -276,6 +279,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAlterarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbxTipo">
       <Properties>
@@ -361,7 +367,7 @@
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${numero}">
-                <BindingParameter name="NAME" value="Numero"/>
+                <BindingParameter name="NAME" value="N&#xfa;mero"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${cliente.nome}">
@@ -373,11 +379,11 @@
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${mesValidade}">
-                <BindingParameter name="NAME" value="Mes Validade"/>
+                <BindingParameter name="NAME" value="M&#xea;s Val."/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
               <Subbinding sourcePath="${anoValidade}">
-                <BindingParameter name="NAME" value="Ano Validade"/>
+                <BindingParameter name="NAME" value="Ano Val."/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
             </BindingProperty>
