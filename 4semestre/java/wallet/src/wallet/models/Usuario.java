@@ -157,10 +157,13 @@ public class Usuario
         return this.renda;
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public static boolean existeUsuario(String cpf)
     {
+        // Retorna a lista de usuários da AreaDeTrabalho.
         List<Usuario> usuarios = wallet.telas.AreaDeTrabalho.getUsuarios();
         
+        // Percorre e verifica se o usuário existe, se sim, retorna verdadeiro.
         for (Usuario u : usuarios)
         {
             if (u.getCPF().equals(cpf))

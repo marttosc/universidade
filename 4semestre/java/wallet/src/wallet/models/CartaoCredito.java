@@ -1,6 +1,7 @@
 package wallet.models;
 
 /**
+ * Classe de cartão de crédito.
  * @author Gustavo Marttos
  * @author Jordana Nogueira
  * @author Leandro Cazarini

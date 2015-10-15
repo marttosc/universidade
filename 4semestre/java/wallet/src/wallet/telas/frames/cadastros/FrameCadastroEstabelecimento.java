@@ -14,24 +14,16 @@ import wallet.telas.AreaDeTrabalho;
  
 public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
 
-    private Estabelecimento _estabelecimento = null;
-
     /**
      * Creates new form FrameCadastroEstabelecimento
      */
     public FrameCadastroEstabelecimento() {
         initComponents();
-
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-        btSalvar.setEnabled(true);
-        
-        setTitle("Cadastro de Estabelecimento");
     }
     
-     private void preencherAlterar(Estabelecimento est)
+    // Preenche os campos na hora de alterar.
+    private void preencherAlterar(Estabelecimento est)
     {
-               
         txtCNPJ.setValue(est.getCnpj());
         txtNome.setText(est.getNome());
         txtEndereco.setText(est.getEndereco());
@@ -39,6 +31,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
         txtCEP.setValue(est.getCep());
         txtCidade.setText(est.getCidade());
         cbbUF.setSelectedItem(est.getUf());
+        txtTelefone.setValue(est.getTelefone());
     }
 
     /**
@@ -80,8 +73,6 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Cadastro de Estabelecimento");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
                 formCadastroEstabelecimentoClose(evt);
             }
@@ -94,6 +85,8 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
 
@@ -111,15 +104,9 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
 
         cbbUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.uf}"), cbbUF, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
         lblUF.setText("UF");
 
         lblTelefone.setText("Telefone");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nome}"), txtNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
 
         try
         {
@@ -137,12 +124,6 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
                 //}
             //});
 
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cnpj}"), txtCNPJ, org.jdesktop.beansbinding.BeanProperty.create("value"));
-    bindingGroup.addBinding(binding);
-
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.endereco}"), txtEndereco, org.jdesktop.beansbinding.BeanProperty.create("text"));
-    bindingGroup.addBinding(binding);
-
     try
     {
         javax.swing.text.MaskFormatter formatCEP = new javax.swing.text.MaskFormatter("#####-###");
@@ -153,9 +134,6 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     {
     }
 
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cep}"), txtCEP, org.jdesktop.beansbinding.BeanProperty.create("value"));
-    bindingGroup.addBinding(binding);
-
     try
     {
         javax.swing.text.MaskFormatter formatTel = new javax.swing.text.MaskFormatter("(##) ####-####");
@@ -165,15 +143,6 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     catch (Exception e)
     {
     }
-
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.telefone}"), txtTelefone, org.jdesktop.beansbinding.BeanProperty.create("value"));
-    bindingGroup.addBinding(binding);
-
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.bairro}"), txtBairro, org.jdesktop.beansbinding.BeanProperty.create("text"));
-    bindingGroup.addBinding(binding);
-
-    binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbEstabelecimento, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cidade}"), txtCidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
-    bindingGroup.addBinding(binding);
 
     org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, lstEstabelecimento, tbEstabelecimento);
     org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cnpj}"));
@@ -320,69 +289,123 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formCadastroEstabelecimentoClose
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        /**
+         * O botão de Salvar nesta tela tem duas funções:
+         *      1 - criar um novo estabelecimento; ou
+         *      2 - editar um estabelecimento existente.
+         * 
+         * Se o JButton "btAlterar" estiver ATIVADO (enabled) é porque
+         * criará um novo estabelecimento, mas caso esteja DESATIVADO (disabled)
+         * ele alterará o estabelecimento.
+         */
         if (validarCadastro())
         {
-            Estabelecimento estabelecimento = new Estabelecimento();
-            
-            estabelecimento.setCnpj(txtCNPJ.getValue().toString());
-            estabelecimento.setNome(txtNome.getText());
-            estabelecimento.setEndereco(txtEndereco.getText());
-            estabelecimento.setBairro(txtBairro.getText());
-            estabelecimento.setCidade(txtCidade.getText());
-            estabelecimento.setCep(txtCEP.getValue().toString());
-            estabelecimento.setUf(cbbUF.getSelectedItem().toString());
-            estabelecimento.setTelefone(txtTelefone.getValue().toString());
-                
-            if (Estabelecimento.existeEstabelecimento(estabelecimento.getCnpj()))
+            // Pode criar.
+            if (btAlterar.isEnabled())
             {
-                Helper.mostrarMensagem("Estabelecimento já existente!", Color.ORANGE, lblExtraInfo);
-            }
-            else
-            {
-                lstEstabelecimento.add(estabelecimento);
-                
-                Helper.mostrarMensagem("Estabelecimento cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
-            }
-        }
-    }//GEN-LAST:event_btSalvarActionPerformed
-
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        if (validarCadastro())
-        {
-            if (!Estabelecimento.existeEstabelecimento(txtCNPJ.getValue().toString()))
-            {
-                Helper.mostrarMensagem("Estabelecimento não existente!", Color.RED, lblExtraInfo);
-            }
-            else
-            {
-                Estabelecimento estabelecimento = _estabelecimento;
+                Estabelecimento estabelecimento = new Estabelecimento();
             
                 estabelecimento.setCnpj(txtCNPJ.getValue().toString());
                 estabelecimento.setNome(txtNome.getText());
                 estabelecimento.setEndereco(txtEndereco.getText());
                 estabelecimento.setBairro(txtBairro.getText());
-                estabelecimento.setCep(txtCEP.getValue().toString());
                 estabelecimento.setCidade(txtCidade.getText());
+                estabelecimento.setCep(txtCEP.getValue().toString());
                 estabelecimento.setUf(cbbUF.getSelectedItem().toString());
-               
-                
-                Helper.mostrarMensagem("Estabelecimento alterado com sucesso!", Color.GREEN, lblExtraInfo);
-                
-                setTitle("Cadastro de Estabelecimento");
-                
-                btAlterar.setEnabled(false);
-                btExcluir.setEnabled(false);
-                btSalvar.setEnabled(true);
+                estabelecimento.setTelefone(txtTelefone.getValue().toString());
+
+                if (Estabelecimento.existeEstabelecimento(estabelecimento.getCnpj()))
+                {
+                    Helper.mostrarMensagem("Estabelecimento já existente!", Color.ORANGE, lblExtraInfo);
+                }
+                else
+                {
+                    lstEstabelecimento.add(estabelecimento);
+
+                    Helper.mostrarMensagem("Estabelecimento cadastrado com sucesso!", Color.GREEN, lblExtraInfo);
+                    
+                    limparFormulario();
+                }
             }
+            // Pode alterar
+            else
+            {
+                if (!Estabelecimento.existeEstabelecimento(txtCNPJ.getValue().toString()))
+                {
+                    Helper.mostrarMensagem("Estabelecimento não existente!", Color.RED, lblExtraInfo);
+                }
+                else
+                {
+                    Estabelecimento estabelecimento = lstEstabelecimento
+                            .get(tbEstabelecimento.getSelectedRow());
+
+                    estabelecimento.setCnpj(txtCNPJ.getValue().toString());
+                    estabelecimento.setNome(txtNome.getText());
+                    estabelecimento.setEndereco(txtEndereco.getText());
+                    estabelecimento.setBairro(txtBairro.getText());
+                    estabelecimento.setCep(txtCEP.getValue().toString());
+                    estabelecimento.setCidade(txtCidade.getText());
+                    estabelecimento.setUf(cbbUF.getSelectedItem().toString());
+
+                    Helper.mostrarMensagem("Estabelecimento alterado com sucesso!", Color.GREEN, lblExtraInfo);
+
+                    btAlterar.setEnabled(true);
+                    btExcluir.setEnabled(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        /**
+         * O botão Alterar só funcionará se houver alguma linha da tabela
+         * selecionada.
+         */
+        if (tbEstabelecimento.getSelectedRow() > -1)
+        {
+            Estabelecimento e = lstEstabelecimento.get(tbEstabelecimento.getSelectedRow());
+
+            // Preenche os campos com os dados do estabelecimento.
+            preencherAlterar(e);
+
+            btAlterar.setEnabled(false);
+            btExcluir.setEnabled(false);
+            btSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        AreaDeTrabalho.getEstabelecimentos().remove(_estabelecimento);
+        /**
+         * O botão Excluir só funcionará se houver alguma linha da tabela
+         * selecionada.
+         */
+        if (tbEstabelecimento.getSelectedRow() > -1)
+        {
+            lstEstabelecimento.remove(tbEstabelecimento.getSelectedRow());
         
-        Helper.mostrarMensagem("Estabelecimento removido!", Color.RED, lblExtraInfo);
+            Helper.mostrarMensagem("Estabelecimento removido!", Color.RED, lblExtraInfo);
+
+            limparFormulario();
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    // Limpa o formulário da tela.
+    private void limparFormulario()
+    {
+        txtCNPJ.setValue("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
+        txtCEP.setValue("");
+        cbbUF.setSelectedItem("");
+        txtTelefone.setValue("");
+    }
+    
+    /**
+     * Valida o formulário conforme a regra de negócio.
+     * @return Se o formulário está OK.
+     */
     private boolean validarCadastro()
     {
         if (!Helper.validarCNPJ(txtCNPJ.getValue()))
@@ -433,6 +456,7 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
             Helper.mostrarMensagem("Informe um telefone", Color.RED, lblExtraInfo);
         }
         
+        // Está OK.
         Helper.mostrarMensagem("", lblExtraInfo);
 
         return true;

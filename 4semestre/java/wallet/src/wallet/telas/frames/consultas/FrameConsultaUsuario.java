@@ -6,7 +6,6 @@
 package wallet.telas.frames.consultas;
 
 import javax.swing.JDesktopPane;
-import javax.swing.table.DefaultTableModel;
 import wallet.models.Usuario;
 import wallet.telas.AreaDeTrabalho;
 
@@ -123,6 +122,11 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formConsultaUsuarioClose
 
     private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        /**
+         * Quando clicar duas vezes em uma determinada linha da coluna,
+         * habilita a tela de edição (FrameCadastroUsuario) com as informações
+         * que vieram através do usuário resgatado da tabela.
+         */
         if (evt.getClickCount() > 1)
         {
             int user = tbUsuarios.getSelectedRow();

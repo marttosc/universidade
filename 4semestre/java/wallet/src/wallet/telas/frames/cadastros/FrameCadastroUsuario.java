@@ -32,6 +32,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         setTitle("Cadastro de Usuários");
     }
     
+    /**
+     * Cria um novo formulário, porém habilitado para edição.
+     * @param user Modelo usuário.
+     */
     public FrameCadastroUsuario(Usuario user)
     {
         this();
@@ -47,6 +51,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         _usuario = user;
     }
     
+    /**
+     * Preenche o formulário com as informações do usuário.
+     * @param user Usuário definido.
+     */
     private void preencherAlterar(Usuario user)
     {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -325,6 +333,9 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formCadastroUsuarioClose
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        /**
+         * Verifica se o e-mail é válido ou não.
+         */
         if (!EmailValidator.getInstance().isValid(txtEmail.getText().trim()))
         {
             txtEmail.setText("");
@@ -332,6 +343,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
+        /**
+         * Se o txtCPF perder o foco, valida se o CPF é válido, caso contrário
+         * mostra uma mensagem e apaga o conteúdo do campo.
+         */
         if (Helper.removerMascara(txtCPF.getText().trim()).length() > 6)
         {
             if (_usuario == null
@@ -341,12 +356,13 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
                                         JOptionPane.ERROR_MESSAGE);
 
                 txtCPF.setValue("");
-                txtCPF.requestFocus();
+                txtCPF.requestFocus(); // Foca no campo do CPF.
             }
         }
     }//GEN-LAST:event_txtCPFFocusLost
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // Verifica se o formulário está OK.
         if (validarCadastro())
         {
             Usuario usuario = new Usuario();
@@ -377,6 +393,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        /**
+         * Assim como o cadastro, valida o formulário, entretanto aqui
+         * ele salva as informações de um existente.
+         */
         if (validarCadastro())
         {
             if (!Usuario.existeUsuario(txtCPF.getValue().toString()))
@@ -413,6 +433,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // Remove o usuário que foi selecionado.
         AreaDeTrabalho.getUsuarios().remove(_usuario);
         
         Helper.mostrarMensagem("Cliente removido!", Color.RED, lblExtraInfo);
@@ -426,6 +447,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         limparFormulario();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    // Limpa os campos do formulário.
     private void limparFormulario()
     {
         txtCPF.setValue("");
@@ -440,6 +462,10 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         txtRenda.setText("");
     }
     
+    /**
+     * Verifica se o formulário está de acordo com as regras de negócio.
+     * @return Form OK
+     */
     private boolean validarCadastro()
     {
         if (!Helper.validarCPF(txtCPF.getValue()))

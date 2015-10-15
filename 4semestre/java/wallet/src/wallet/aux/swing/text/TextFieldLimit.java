@@ -6,6 +6,8 @@ import javax.swing.text.PlainDocument;
 
 /**
  * Permite definir uma determinada quantia de caracteres.
+ * Esta classe faz com que um TextField tenha no máximo 
+ * uma quantia X de caracteres.
  * @author Gustavo Marttos
  * @author Jordana Nogueira
  * @author Leandro Cazarini

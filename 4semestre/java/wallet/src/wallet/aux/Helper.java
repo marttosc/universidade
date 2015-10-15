@@ -9,22 +9,43 @@ import javax.swing.JLabel;
  */
 public class Helper
 {
+    /**
+     * Exibe uma mensagem com determinada cor em uma JLabel.
+     * @param msg Mensagem a ser exibida.
+     * @param clr Cor da mensagem.
+     * @param lbl Objeto JLabel.
+     */
     public static void mostrarMensagem(String msg, Color clr, JLabel lbl)
     {
         lbl.setText(msg);
         lbl.setForeground(clr);
     }
     
+    /**
+     * Exibe uma mensagem com determinada cor em uma JLabel.
+     * @param msg Mensagem a ser exibida.
+     * @param lbl Objeto JLabel.
+     */
     public static void mostrarMensagem(String msg, JLabel lbl)
     {
         mostrarMensagem(msg, Color.BLACK, lbl);
     }
     
+    /**
+     * Remove a máscara de CPF e CNPJ.
+     * @param text CPF ou CNPJ.
+     * @return Texto sem máscara.
+     */
     public static String removerMascara(String text)
     {
         return text.replaceAll("[.\\-/]", "");
     }
     
+    /**
+     * Verifica se um CPF é válido.
+     * @param cpf CPF sem máscara.
+     * @return Validação do CPF
+     */
     public static boolean validarCPF(String cpf)
     {
         if (cpf.equals("00000000000") || cpf.equals("11111111111") ||
@@ -96,6 +117,11 @@ public class Helper
         }
     }
     
+    /**
+     * Verifica se um CPF é válido.
+     * @param cpf CPF com máscara.
+     * @return Validação do CPF
+     */
     public static boolean validarCPF(Object cpf)
     {
         try
@@ -111,6 +137,11 @@ public class Helper
             
     }
     
+    /**
+     * Verifica se um CNPJ é válido.
+     * @param cnpj CNPJ sem máscara.
+     * @return Validação do CNPJ
+     */
     public static boolean validarCNPJ(String cnpj)
     {
         if (cnpj.equals("00000000000000") || cnpj.equals("11111111111111") ||
@@ -191,6 +222,11 @@ public class Helper
         }
     }
     
+    /**
+     * Verifica se um CNPJ é válido.
+     * @param cnpj CNPJ com máscara.
+     * @return Validação do CNPJ
+     */
     public static boolean validarCNPJ(Object cnpj)
     {
         try

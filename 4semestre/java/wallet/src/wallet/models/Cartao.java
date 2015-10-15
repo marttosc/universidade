@@ -92,10 +92,18 @@ public class Cartao
     
     public void passarCartao() {}
     
+    // Utilizado somente para não trabalhar com persistência no DB.
+    /**
+     * Verifica se o número do cartão já está cadastrado na lista.
+     * @param numero Número do cartão
+     * @return Se o cartão existe ou não.
+     */
     public static boolean existeCartao(String numero)
     {
+        // Retorna a lista de cartões da AreaDeTrabalho.
         List<Cartao> cartoes = wallet.telas.AreaDeTrabalho.getCartoes();
         
+        // Percorre e verifica se o número existe, se sim, retorna verdadeiro.
         for (Cartao c : cartoes)
         {
             if (c.getNumero().equals(numero))

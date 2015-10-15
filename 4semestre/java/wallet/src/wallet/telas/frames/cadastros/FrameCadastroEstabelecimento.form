@@ -186,9 +186,6 @@
           <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;AC&quot;, &quot;AL&quot;, &quot;AM&quot;, &quot;AP&quot;, &quot;BA&quot;, &quot;CE&quot;, &quot;DF&quot;, &quot;ES&quot;, &quot;GO&quot;, &quot;MA&quot;, &quot;MG&quot;, &quot;MS&quot;, &quot;MT&quot;, &quot;PA&quot;, &quot;PB&quot;, &quot;PE&quot;, &quot;PI&quot;, &quot;PR&quot;, &quot;RJ&quot;, &quot;RN&quot;, &quot;RO&quot;, &quot;RR&quot;, &quot;RS&quot;, &quot;SC&quot;, &quot;SE&quot;, &quot;SP&quot;, &quot;TO&quot; })" type="code"/>
         </Property>
       </Properties>
-      <BindingProperties>
-        <BindingProperty name="selectedItem" source="tbEstabelecimento" sourcePath="${selectedElement.uf}" target="cbbUF" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblUF">
       <Properties>
@@ -201,56 +198,27 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
-      <BindingProperties>
-        <BindingProperty name="text" source="tbEstabelecimento" sourcePath="${selectedElement.nome}" target="txtNome" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtCNPJ">
-      <BindingProperties>
-        <BindingProperty name="value" source="tbEstabelecimento" sourcePath="${selectedElement.cnpj}" target="txtCNPJ" targetPath="value" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatCNPJ = new javax.swing.text.MaskFormatter(&quot;##.###.###/####-##&quot;);&#xa;&#xa;    txtCNPJ = new javax.swing.JFormattedTextField(formatCNPJ);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}&#xa;&#xa;//txtCNPJ.addFocusListener(new java.awt.event.FocusAdapter() {&#xa;  //  public void focusLost(java.awt.event.FocusEvent e){&#xa;    //    txtCNPJFocusLost (e);&#xa;    //}&#xa;//});"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEndereco">
-      <BindingProperties>
-        <BindingProperty name="text" source="tbEstabelecimento" sourcePath="${selectedElement.endereco}" target="txtEndereco" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtCEP">
-      <BindingProperties>
-        <BindingProperty name="value" source="tbEstabelecimento" sourcePath="${selectedElement.cep}" target="txtCEP" targetPath="value" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatCEP = new javax.swing.text.MaskFormatter(&quot;#####-###&quot;);&#xa;&#xa;    txtCEP = new javax.swing.JFormattedTextField(formatCEP);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtTelefone">
-      <BindingProperties>
-        <BindingProperty name="value" source="tbEstabelecimento" sourcePath="${selectedElement.telefone}" target="txtTelefone" targetPath="value" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try&#xa;{&#xa;    javax.swing.text.MaskFormatter formatTel = new javax.swing.text.MaskFormatter(&quot;(##) ####-####&quot;);&#xa;&#xa;    txtTelefone = new javax.swing.JFormattedTextField(formatTel);&#xa;}&#xa;catch (Exception e)&#xa;{&#xa;}"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBairro">
-      <BindingProperties>
-        <BindingProperty name="text" source="tbEstabelecimento" sourcePath="${selectedElement.bairro}" target="txtBairro" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCidade">
-      <BindingProperties>
-        <BindingProperty name="text" source="tbEstabelecimento" sourcePath="${selectedElement.cidade}" target="txtCidade" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

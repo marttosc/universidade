@@ -3,11 +3,13 @@ package wallet.models;
 import java.util.List;
 
 /**
- *  @author Jordana
- *  @author Gustavo Marttos
- *  @author Leandro
+ * Classe de estabelecimento.
+ * @author Jordana
+ * @author Gustavo Marttos
+ * @author Leandro
  */
-public class Estabelecimento {
+public class Estabelecimento
+{
     
     private int id;
     private String cnpj;
@@ -109,10 +111,13 @@ public class Estabelecimento {
         this.telefone = telefone;
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public static boolean existeEstabelecimento(String cnpj)
     {
+        // Retorna a lista de estabelecimentos da AreaDeTrabalho.
         List<Estabelecimento> estabelecimento = wallet.telas.AreaDeTrabalho.getEstabelecimentos();
         
+        // Percorre e verifica se o estabelecimento existe, se sim, retorna verdadeiro.
         for (Estabelecimento e : estabelecimento)
         {
             if (e.getCnpj().equals(cnpj))

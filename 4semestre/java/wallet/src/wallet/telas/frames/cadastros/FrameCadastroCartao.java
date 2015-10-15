@@ -2,7 +2,6 @@
 package wallet.telas.frames.cadastros;
 
 import java.awt.Color;
-import java.util.LinkedList;
 import javax.swing.JDesktopPane;
 import wallet.aux.Helper;
 import wallet.models.Cartao;
@@ -295,6 +294,16 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        /**
+         * O botão de Salvar nesta tela tem duas funções:
+         *      1 - criar um novo cartão; ou
+         *      2 - editar um cartão existente.
+         * 
+         * Se o JButton "btAlterar" estiver ATIVADO (enabled) é porque
+         * criará um novo cartão, mas caso esteja DESATIVADO (disabled)
+         * ele alterará o cartão.
+         */
+        
         if (validarCadastro())
         {
             // Se o botão alterar está habilitado, é porque é cadastro.
@@ -302,6 +311,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
             {
                 Cartao cartao;
             
+                // Faz o cast do cartão.
                 if (cmbxTipo.getSelectedItem().toString().toLowerCase().equals("débito"))
                 {
                     cartao = new CartaoDebito();
@@ -323,6 +333,10 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
                 cartao.setAnoValidade(Integer.parseInt(cmbxdataAno.getSelectedItem()
                         .toString()));
 
+                /**
+                 * replaceAll tira a formatação do modo brasileiro para o modo
+                 * americano.
+                 */
                 if (cartao instanceof CartaoCredito)
                 {
                     ((CartaoCredito) cartao).setLimite(Double.parseDouble(txtLimite
@@ -334,6 +348,10 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
                             .getText().trim().replaceAll("\\.", "").replaceAll(",", ".")));
                 }
 
+                /**
+                 * Se o cartão NÃO existir o adiciona na lista LOCAL, onde esta
+                 * encontra-se vinculada à classe AreaDeTrabalho.
+                 */
                 if (!Cartao.existeCartao(cartao.getNumero()))
                 {
                     lstCartoes.add(cartao);
@@ -349,6 +367,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
             {
                 // Botão alterar foi ativado, logo, vai alterar o cartão.
                 
+                // Retorna o Cartão da linha selecionada da tabela.
                 Cartao card = lstCartoes.get(tblCartoes.getSelectedRow());
                 
                 String cpf = txtCPF.getText().trim();
@@ -375,10 +394,19 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
                 }
                 
                 Helper.mostrarMensagem("Cartão alterado com sucesso!", Color.ORANGE, lblExtraInfo);
+                
+                btAlterar.setEnabled(true);
+                btExcluir.setEnabled(true);
+                
+                limparFormulario();
             }
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    /**
+     * Valida o formulário conforme a regra de negócio.
+     * @return Se o formulário está OK.
+     */
     private boolean validarCadastro()
     {
         if (!Helper.validarCPF(txtCPF.getValue()) || txtNome.getText().trim().equals(""))
@@ -405,7 +433,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
             
             return false;
         }
-        
+
         if (Double.parseDouble(txtLimite.getText().trim()
                 .replaceAll("\\.", "").replaceAll(",", ".")) < 100)
         {
@@ -415,12 +443,18 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
             return false;
         }
         
+        // Validação OK.
         Helper.mostrarMensagem("", lblExtraInfo);
         
         return true;
     }
     
     private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
+        /**
+         * Ao perder o foco no campo txtCPF, verifica se o usuário existe e,
+         * caso positivo, retorna o seu nome.
+         */
+        
         String cpf = txtCPF.getText().trim();
 
         if (Usuario.existeUsuario(cpf))
@@ -440,6 +474,11 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCPFFocusLost
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        /**
+         * O botão Alterar só funcionará se houver alguma linha da tabela
+         * selecionada. Ele desativa os botões de excluir e a si mesmo.
+         */
+        
         if (tblCartoes.getSelectedRow() > -1)
         {
             btAlterar.setEnabled(false);
@@ -485,13 +524,21 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        lstCartoes.remove(tblCartoes.getSelectedRow());
+        /**
+         * O botão Excluir só funcionará se houver alguma linha da tabela
+         * selecionada.
+         */
+        if (tblCartoes.getSelectedRow() > -1)
+        {
+            lstCartoes.remove(tblCartoes.getSelectedRow());
         
-        Helper.mostrarMensagem("Cartão excluído!", Color.RED, lblExtraInfo);
-        
-        limparFormulario();
+            Helper.mostrarMensagem("Cartão excluído!", Color.RED, lblExtraInfo);
+
+            limparFormulario();
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    // Limpa os dados do formulário.
     private void limparFormulario()
     {
         txtCPF.setValue("");
