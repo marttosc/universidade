@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Modelo para as bandeiras dos cartões
+ * Modelo para as bandeiras dos cartões.
  * @author Gustavo Marttos
  * @author Jordana Nogueira
  * @author Leandro Cazarini
@@ -23,6 +23,7 @@ public class Bandeira
         usarPadrao = false;
     }
     
+    // Construtor utilizado somente para não trabalhar com persistência no DB.
     public Bandeira(boolean usarPadrao)
     {
         setPadrao(usarPadrao);
@@ -48,11 +49,13 @@ public class Bandeira
         setNome(nome);
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public void setPadrao(boolean padrao)
     {
         this.usarPadrao = padrao;
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public boolean isPadrao()
     {
         return this.usarPadrao;
@@ -78,6 +81,7 @@ public class Bandeira
         return this.nome;
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public List<Bandeira> getPadrao()
     {
         if (isPadrao())
@@ -90,6 +94,7 @@ public class Bandeira
         }
     }
     
+    // Utilizado somente para não trabalhar com persistência no DB.
     public void adicionar(Bandeira bandeira)
     {
         this.padrao.add(bandeira);

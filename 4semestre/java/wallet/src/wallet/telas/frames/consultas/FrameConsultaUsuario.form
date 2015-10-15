@@ -87,6 +87,12 @@
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbUsuariosMouseClicked"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xa;    @Override&#xa;    public boolean isCellEditable(int row, int colum)&#xa;    {&#xa;        return false;&#xa;    }&#xa;}"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -1,10 +1,9 @@
 # Projetos da Universidade
 
-Ainda trabalhando nisso...
+Trabalhos da faculdade realizados.
 
-## A fazer (Wallet)
+## Trabalho #1 - Wallet / Java
 
-- [ ] Atalhos dos menus;
-- [X] Fixação da tela;
-- [X] Centralizar a tela;
-- [X] Validar CPF e permitir somente números.
+- Gustavo Marttos, 53620-2;
+- Jordana Nogueira, 54271-7; e
+- Leandro Cazarini, 36585-8.

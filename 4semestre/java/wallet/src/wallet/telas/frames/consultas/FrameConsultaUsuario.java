@@ -34,7 +34,13 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
 
         lstUsuarios = AreaDeTrabalho.getUsuarios();
         spaUsuarios = new javax.swing.JScrollPane();
-        tbUsuarios = new javax.swing.JTable();
+        tbUsuarios = new javax.swing.JTable() {
+            @Override
+            public boolean isCellEditable(int row, int colum)
+            {
+                return false;
+            }
+        };
 
         lstUsuarios = org.jdesktop.observablecollections.ObservableCollections.observableList(lstUsuarios);
 
@@ -80,6 +86,11 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
 
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         spaUsuarios.setViewportView(tbUsuarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,6 +120,26 @@ public class FrameConsultaUsuario extends javax.swing.JInternalFrame {
         
         ((AreaDeTrabalho) dsk).fecharConsultaUsuario();
     }//GEN-LAST:event_formConsultaUsuarioClose
+
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        /**
+         * Quando clicar duas vezes em uma determinada linha da coluna,
+         * habilita a tela de edição (FrameCadastroUsuario) com as informações
+         * que vieram através do usuário resgatado da tabela.
+         */
+        if (evt.getClickCount() > 1)
+        {
+            int user = tbUsuarios.getSelectedRow();
+            
+            Usuario usuario = AreaDeTrabalho.getUsuarios().get(user);
+            
+            JDesktopPane p = getDesktopPane();
+            
+            ((AreaDeTrabalho) p).fecharConsultaUsuario();
+            
+            ((AreaDeTrabalho) p).abrirCadastroUsuario(usuario);
+        }
+    }//GEN-LAST:event_tbUsuariosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
