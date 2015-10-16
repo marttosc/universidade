@@ -452,7 +452,8 @@ public class FrameCadastroEstabelecimento extends javax.swing.JInternalFrame {
             return false;
         }
         
-        if (txtTelefone.getText().trim().length() == 0){
+        if (txtTelefone.getText().trim().length() == 0
+                || txtTelefone.getValue() == null){
             Helper.mostrarMensagem("Informe um telefone", Color.RED, lblExtraInfo);
         }
         

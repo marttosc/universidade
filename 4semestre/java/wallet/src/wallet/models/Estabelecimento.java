@@ -1,5 +1,7 @@
 package wallet.models;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -12,14 +14,6 @@ public class Estabelecimento
 {
     
     private int id;
-    private String cnpj;
-    private String nome;
-    private String endereco;
-    private String bairro;
-    private String cidade;
-    private String cep;
-    private String uf;
-    private String telefone;
     
     public int getId()
     {
@@ -30,85 +24,117 @@ public class Estabelecimento
     {
         this.id = id;
     }
+    
+    private String nome;
 
-    public String getCnpj()
-    {
-        return cnpj;
-    }
+    public static final String PROP_NOME = "nome";
 
-    public void setCnpj(String cnpj)
-    {
-        this.cnpj = cnpj;
-    }
-
-    public String getNome()
-    {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome)
-    {
+    public void setNome(String nome) {
+        String oldNome = this.nome;
         this.nome = nome;
+        propertyChangeSupport.firePropertyChange(PROP_NOME, oldNome, nome);
     }
 
-    public String getEndereco()
-    {
+    private String cnpj;
+
+    public static final String PROP_CNPJ = "cnpj";
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        String oldCnpj = this.cnpj;
+        this.cnpj = cnpj;
+        propertyChangeSupport.firePropertyChange(PROP_CNPJ, oldCnpj, cnpj);
+    }
+
+    private String endereco;
+
+    public static final String PROP_ENDERECO = "endereco";
+
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco)
-    {
+    public void setEndereco(String endereco) {
+        String oldEndereco = this.endereco;
         this.endereco = endereco;
+        propertyChangeSupport.firePropertyChange(PROP_ENDERECO, oldEndereco, endereco);
     }
 
-    public String getBairro()
-    {
+    private String bairro;
+
+    public static final String PROP_BAIRRO = "bairro";
+
+    public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro)
-    {
+    public void setBairro(String bairro) {
+        String oldBairro = this.bairro;
         this.bairro = bairro;
+        propertyChangeSupport.firePropertyChange(PROP_BAIRRO, oldBairro, bairro);
     }
 
-    public String getCidade()
-    {
+    private String cidade;
+
+    public static final String PROP_CIDADE = "cidade";
+
+    public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade)
-    {
+    public void setCidade(String cidade) {
+        String oldCidade = this.cidade;
         this.cidade = cidade;
+        propertyChangeSupport.firePropertyChange(PROP_CIDADE, oldCidade, cidade);
     }
 
-    public String getCep()
-    {
+    private String cep;
+
+    public static final String PROP_CEP = "cep";
+
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep)
-    {
+    public void setCep(String cep) {
+        String oldCep = this.cep;
         this.cep = cep;
+        propertyChangeSupport.firePropertyChange(PROP_CEP, oldCep, cep);
     }
 
-    public String getUf()
-    {
+    private String uf;
+
+    public static final String PROP_UF = "uf";
+
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(String uf)
-    {
+    public void setUf(String uf) {
+        String oldUf = this.uf;
         this.uf = uf;
+        propertyChangeSupport.firePropertyChange(PROP_UF, oldUf, uf);
     }
 
-    public String getTelefone()
-    {
+    private String telefone;
+
+    public static final String PROP_TELEFONE = "telefone";
+
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone)
-    {
+    public void setTelefone(String telefone) {
+        String oldTelefone = this.telefone;
         this.telefone = telefone;
+        propertyChangeSupport.firePropertyChange(PROP_TELEFONE, oldTelefone, telefone);
     }
     
     // Utilizado somente para não trabalhar com persistência no DB.
@@ -128,5 +154,15 @@ public class Estabelecimento
         
         return false; 
     } 
+    
+    private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
     
 }

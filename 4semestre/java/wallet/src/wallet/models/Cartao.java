@@ -1,6 +1,8 @@
 
 package wallet.models;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -12,82 +14,102 @@ import java.util.List;
 public class Cartao
 {
     private String numero;
-    private int mesValidade;
-    private int anoValidade;
-    private String bandeira;
-    private Usuario cliente;
-    private String cvc;
-    private String tipo;
 
-    public String getNumero()
-    {
+    public static final String PROP_NUMERO = "numero";
+
+    public String getNumero() {
         return numero;
     }
-    
 
-    public void setNumero(String numero)
-    {
+    public void setNumero(String numero) {
+        String oldNumero = this.numero;
         this.numero = numero;
+        propertyChangeSupport.firePropertyChange(PROP_NUMERO, oldNumero, numero);
     }
 
-    public int getMesValidade()
-    {
+    private int mesValidade;
+
+    public static final String PROP_MESVALIDADE = "mesValidade";
+
+    public int getMesValidade() {
         return mesValidade;
     }
 
-    public void setMesValidade(int mesValidade)
-    {
+    public void setMesValidade(int mesValidade) {
+        int oldMesValidade = this.mesValidade;
         this.mesValidade = mesValidade;
+        propertyChangeSupport.firePropertyChange(PROP_MESVALIDADE, oldMesValidade, mesValidade);
     }
 
-    public int getAnoValidade()
-    {
+    private int anoValidade;
+
+    public static final String PROP_ANOVALIDADE = "anoValidade";
+
+    public int getAnoValidade() {
         return anoValidade;
     }
 
-    public void setAnoValidade(int anoValidade)
-    {
+    public void setAnoValidade(int anoValidade) {
+        int oldAnoValidade = this.anoValidade;
         this.anoValidade = anoValidade;
+        propertyChangeSupport.firePropertyChange(PROP_ANOVALIDADE, oldAnoValidade, anoValidade);
     }
 
-    public String getBandeira()
-    {
+    private String bandeira;
+
+    public static final String PROP_BANDEIRA = "bandeira";
+
+    public String getBandeira() {
         return bandeira;
     }
 
-    public void setBandeira(String bandeira)
-    {
+    public void setBandeira(String bandeira) {
+        String oldBandeira = this.bandeira;
         this.bandeira = bandeira;
+        propertyChangeSupport.firePropertyChange(PROP_BANDEIRA, oldBandeira, bandeira);
     }
 
-    public Usuario getCliente()
-    {
+        private Usuario cliente;
+
+    public static final String PROP_CLIENTE = "cliente";
+
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(Usuario cliente)
-    {
+    public void setCliente(Usuario cliente) {
+        Usuario oldCliente = this.cliente;
         this.cliente = cliente;
+        propertyChangeSupport.firePropertyChange(PROP_CLIENTE, oldCliente, cliente);
     }
 
-    public String getCvc()
-    {
+
+    private String cvc;
+
+    public static final String PROP_CVC = "cvc";
+
+    public String getCvc() {
         return cvc;
     }
 
-    public void setCvc(String cvc)
-    {
+    public void setCvc(String cvc) {
+        String oldCvc = this.cvc;
         this.cvc = cvc;
+        propertyChangeSupport.firePropertyChange(PROP_CVC, oldCvc, cvc);
     }
-    
-    public void setTipo(String tipo)
-    {
+
+    private String tipo;
+
+    public static final String PROP_TIPO = "tipo";
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        String oldTipo = this.tipo;
         this.tipo = tipo;
-    }
-    
-    public String getTipo()
-    {
-        return this.tipo;
+        propertyChangeSupport.firePropertyChange(PROP_TIPO, oldTipo, tipo);
     }
     
     public void passarCartao() {}
@@ -113,5 +135,15 @@ public class Cartao
         }
         
         return false;
+    }
+    
+    private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
