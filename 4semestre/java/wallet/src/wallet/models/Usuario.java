@@ -17,7 +17,9 @@ public class Usuario
     
     private String cpf;
     
-    private String nome;
+    private String primeiro_nome;    
+    
+    private String segundo_nome;
     
     private Date nascimento;
     
@@ -55,14 +57,22 @@ public class Usuario
         return this.cpf;
     }
     
-    public void setNome(String nome)
+    public void setPrimeiroNome(String primeiro_nome)
     {
-        this.nome = nome;
+        this.primeiro_nome = primeiro_nome;
     }
     
-    public String getNome()
+    public String getPrimeiroNome()
     {
-        return this.nome;
+        return this.primeiro_nome;
+    }
+    
+    public String getSegundoNome() {
+        return segundo_nome;
+    }
+
+    public void setSegundoNome(String segundo_nome) {
+        this.segundo_nome = segundo_nome;
     }
     
     public void setNascimento(Date nascimento)

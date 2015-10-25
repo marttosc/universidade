@@ -461,7 +461,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
         {
             Usuario user = AreaDeTrabalho.getUsuario(cpf);
             
-            txtNome.setText(user.getNome());
+            txtNome.setText(user.getPrimeiroNome());
             txtNome.setEnabled(false);
         }
         else
@@ -487,7 +487,7 @@ public class FrameCadastroCartao extends javax.swing.JInternalFrame {
             Cartao card = lstCartoes.get(tblCartoes.getSelectedRow());
             
             txtCPF.setValue(card.getCliente().getCPF());
-            txtNome.setText(card.getCliente().getNome());
+            txtNome.setText(card.getCliente().getPrimeiroNome());
             txtNome.setEnabled(false);
             
             cmbxTipo.setSelectedItem(card.getTipo());

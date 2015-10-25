@@ -60,7 +60,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         
         txtCPF.setValue(user.getCPF());
-        txtNome.setText(user.getNome());
+        txtNome.setText(user.getPrimeiroNome());
         txtNascimento.setValue(df.format(user.getNascimento()));
         txtEmail.setText(user.getEmail());
         txtEndereco.setText(user.getEndereco());
@@ -369,7 +369,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
             
             usuario.setCPF(txtCPF.getValue().toString());
             usuario.setNascimento(txtNascimento.getValue().toString());
-            usuario.setNome(txtNome.getText());
+            usuario.setPrimeiroNome(txtNome.getText());
             usuario.setEmail(txtEmail.getText());
             usuario.setEndereco(txtEndereco.getText());
             usuario.setBairro(txtBairro.getText());
@@ -409,7 +409,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame {
             
                 usuario.setCPF(txtCPF.getValue().toString());
                 usuario.setNascimento(txtNascimento.getValue().toString());
-                usuario.setNome(txtNome.getText());
+                usuario.setPrimeiroNome(txtNome.getText());
                 usuario.setEmail(txtEmail.getText());
                 usuario.setEndereco(txtEndereco.getText());
                 usuario.setBairro(txtBairro.getText());
