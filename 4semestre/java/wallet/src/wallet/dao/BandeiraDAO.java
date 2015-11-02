@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package wallet.dao;
 
 /**
- *
- * @author jordana
+ * Classe responsável pelas ações das Bandeiras.
+ * @author Gustavo Marttos
+ * @author Jordana Nogueira
  */
-public class BandeiraDAO {
+public class BandeiraDAO
+{
     
 }

@@ -1,4 +1,3 @@
-
 package wallet.dao;
 /**
  * @author Gustavo Marttos
@@ -10,28 +9,32 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/*Usada para criar a persistência com o banco*/
-
-public class DAO {
+public abstract class DAO
+{
+    private static final String HOST = "localhost";
+    private static final String USER = "root";
+    private static final String PASS = "root";
+    private static final String BASE = "skuld";
     
+    private static final String URL = "jdbc:mysql://" + HOST + "/" + BASE;
+
     protected Connection conn;
     
-    public DAO(){
-        
-        try{
+    public DAO()
+    {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdcb:mysql:localhost/skuld";
-            conn = DriverManager.getConnection(url,"root","123"); 
             
-        }catch(ClassNotFoundException e){
-    
-            System.out.println("Erro ao localizar o Driver: "+ e.getMessage());
-            
-        }catch(SQLException e){
-            
-            System.out.println("Erro de conexão com o banco: "+e.getMessage());
-            
+            conn = DriverManager.getConnection(URL, USER, PASS);
         }
-        
-    } 
+        catch(ClassNotFoundException e)
+        {
+            System.err.println("Erro ao localizar o driver: " + e.getMessage());   
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Erro de conexão com o banco: " +e.getMessage());
+        }
+    }
 }

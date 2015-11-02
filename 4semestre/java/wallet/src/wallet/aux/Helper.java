@@ -241,4 +241,15 @@ public class Helper
         }
             
     }
+    
+    /**
+     * Retorna o valor double.
+     * @param doub Valor a ser retornado.
+     * @return Valor double
+     */
+    public static double getDouble(String doub)
+    {
+        return Double.parseDouble(doub.trim()
+                .replaceAll("\\.", "").replaceAll(",", "."));
+    }
 }

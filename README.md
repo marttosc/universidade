@@ -1,8 +1,4 @@
-# Projetos da Universidade
-
-Trabalhos da faculdade realizados.
-
-## Trabalho #1 - Wallet / Java
+## Trabalho - Wallet / Java
 
 - Gustavo Marttos, 53620-2;
 - Jordana Nogueira, 54271-7; e

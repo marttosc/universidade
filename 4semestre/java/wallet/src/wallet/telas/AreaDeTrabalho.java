@@ -62,7 +62,7 @@ public class AreaDeTrabalho extends JDesktopPane
         
         for (Usuario u : getUsuarios())
         {
-            if (u.getCPF().equals(cpf))
+            if (u.getCpf().equals(cpf))
             {
                 usuario = u;
                 

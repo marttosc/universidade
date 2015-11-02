@@ -1,7 +1,8 @@
 package wallet;
 
 import java.util.Locale;
-import wallet.telas.TelaPrincipal;
+import wallet.aux.LookAndFeel;
+import wallet.telas.frames.Login;
 
 /**
  * Classe principal.
@@ -20,9 +21,11 @@ public class WalletPrincipal
     {
         Locale.setDefault(new Locale("pt", "BR"));
         
-        TelaPrincipal tela = new TelaPrincipal();
+        LookAndFeel.nimbus();
         
-        tela.setVisible(true);
+        Login login = new Login();
+        
+        login.setVisible(true);
     }
     
 }

@@ -1,6 +1,7 @@
 package wallet.telas;
 
 import javax.swing.JFrame;
+import wallet.models.Usuario;
 
 /**
  * Tela principal para abertura da janela.
@@ -10,14 +11,24 @@ import javax.swing.JFrame;
  */
 public class TelaPrincipal extends javax.swing.JFrame
 {
+    public static Usuario USER = null;
 
-    public TelaPrincipal() {
+    public TelaPrincipal()
+    {
         initComponents();
         
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
+    public TelaPrincipal(Usuario usuario)
+    {
+        this();
+        
+        USER = usuario;
+        
+        this.setTitle(USER.getPrimeiroNome() + " " + USER.getSegundoNome() + " - Skuld");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -5,107 +5,245 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
+import wallet.aux.Password;
 import wallet.models.Usuario;
 
 /**
+ * Classe responsável pelas ações dos Usuários.
+ * 
  * @author Gustavo Marttos
- * @author Jordana
- * @author Leandro
+ * @author Jordana Nogueira
+ * @author Leandro Cazarini
  */
 
-public class UsuarioDAO extends DAO {
-    
-    public boolean inserir(Usuario u)
+public class UsuarioDAO extends DAO
+{
+    public List<Usuario> listar()
     {
-        try{
-           String sql = "insert into usuario (id,primeiro_nome,segundo_nome,cpf,"
-                   + "nascimento,id_endereco,email,senha,criado_em,atualizado_em)"
-                   + " values (?,?,?,?,?,?,?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            stmt.setInt(1, u.getId());
-            stmt.setString(2, u.getPrimeiroNome());
-            stmt.setString(3, u.getSegundoNome());
-            stmt.setString(4, u.getCPF());
-            stmt.setDate(5, (Date) u.getNascimento());
-            //stmt.setInt (6, u.getIdEndereco());
-            stmt.setString(7, u.getEmail());
-            //stmt.setString(8, u.getSenha());
-            //stmt.setDate(9, u.getCriadoEm());
-            //stmt.setDate(10, u.getAtualizadoEm());
-            
-            
-            if(stmt.executeUpdate()>0) 
-            {
-                ResultSet rs = stmt.getGeneratedKeys();
-                rs.next();
-                u.setId(rs.getInt(1));
-                return true;
-            }   
-        }catch(SQLException e){
-            System.out.println("Erro ao inserir: "+e.getMessage());
-        }
-        return false;
-    }
-    public List<Usuario> listar() {
-        List<Usuario> lst = new LinkedList<>();
+        List<Usuario> usuarios = new LinkedList<>();
+        
         try
         {
-            String sql = "select * from usuario;";
+            String sql = "SELECT * FROM usuarios";
+            
             Statement stmt = conn.createStatement();
+            
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                Usuario us = new Usuario();
-                us.setId(rs.getInt("id"));
-                us.setPrimeiroNome(rs.getString("primeiro_nome"));
-                us.setSegundoNome(rs.getString("segundo_nome"));
-                us.setCPF(rs.getString("cpf"));
-                us.setNascimento(rs.getDate("nascimento"));
-                us.setEndereco (rs.getString("endereco"));
-                us.setEmail(rs.getString("email"));
-              //us.setSenha(rs.getString("senha"));
-              //us.setCriadoEm(rs.getDate("criado_em"));
-              //us.setAtualizadoEm(rs.getDate("atualizado_em"));               
+            
+            while(rs.next())
+            {
+                Usuario usuario = new Usuario();
                 
-                lst.add(us);
+                usuario.setId(rs.getInt("id"));
+                usuario.setPrimeiroNome(rs.getString("primeiro_nome"));
+                usuario.setSegundoNome(rs.getString("segundo_nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setNascimento(rs.getDate("nascimento"));
+                usuario.setEndereco(new EnderecoDAO().getById(rs.getInt("id_endereco")));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setRenda(rs.getDouble("renda"));
+                usuario.setCriadoEm(rs.getTimestamp("criado_em"));
+                usuario.setAtualizadoEm(rs.getTimestamp("atualizado_em"));               
+                
+                usuarios.add(usuario);
             }
-        }catch(SQLException e)
-        {
-            System.out.println("Erro ao consultar: "+e.getMessage());
         }
-        return lst;
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao consultar Usuários: " + e.getMessage());
+        }
+        
+        return usuarios;
     }
     
-    //recebe um id e retorna um objeto Cliente
+    public boolean inserir(Usuario usuario)
+    {
+        try
+        {
+           String sql = "INSERT INTO usuarios (primeiro_nome, segundo_nome, "
+                   + "cpf, nascimento, id_endereco, email, senha, renda, "
+                   + "criado_em, atualizado_em) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+           
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            int seq = 1;
+            
+            stmt.setString(seq++, usuario.getPrimeiroNome());
+            stmt.setString(seq++, usuario.getSegundoNome());
+            stmt.setString(seq++, usuario.getCpf());
+            stmt.setDate(seq++, new Date(usuario.getNascimento().getTime()));
+            stmt.setInt(seq++, usuario.getEndereco().getId());
+            stmt.setString(seq++, usuario.getEmail());
+            stmt.setString(seq++, usuario.getSenha());
+            stmt.setDouble(seq++, usuario.getRenda());
+            stmt.setTimestamp(seq++, new Timestamp(usuario.getCriadoEm().getTime()));
+            stmt.setTimestamp(seq++, new Timestamp(usuario.getAtualizadoEm().getTime()));
+            
+            if (stmt.executeUpdate() > 0) 
+            {
+                ResultSet rs = stmt.getGeneratedKeys();
+                
+                rs.next();
+                
+                usuario.setId(rs.getInt(1));
+                
+                return true;
+            }   
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Erro ao inserir Usuário: " + e.getMessage());
+        }
+        
+        return false;
+    }
+
     public Usuario getById(int id)
     {
-        Usuario us = null;
-        try{
-            String sql = "select * from usuario where id=?;";
+        Usuario usuario = null;
+        
+        try
+        {
+            String sql = "SELECT * FROM usuarios WHERE id = ?";
+
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1,id);
+            
+            stmt.setInt(1, id);
+            
             ResultSet rs = stmt.executeQuery();
-            if(rs.next())
+            
+            if (rs.next())
             {
-                us = new Usuario();
-                us.setId(id);
-                us.setPrimeiroNome(rs.getString("primeiro_nome"));
-                us.setSegundoNome(rs.getString("segundo_nome"));
-                us.setCPF(rs.getString("cpf"));
-                us.setNascimento(rs.getDate("nascimento"));
-                us.setEndereco (rs.getString("endereco"));
-                us.setEmail(rs.getString("email"));
-              //us.setSenha(rs.getString("senha"));
-              //us.setCriadoEm(rs.getDate("criado_em"));
-              //us.setAtualizadoEm(rs.getDate("atualizado_em")); 
+                usuario = new Usuario();
+
+                usuario.setId(id);
+                usuario.setPrimeiroNome(rs.getString("primeiro_nome"));
+                usuario.setSegundoNome(rs.getString("segundo_nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setNascimento(rs.getDate("nascimento"));
+                usuario.setEndereco(new EnderecoDAO().getById(rs.getInt("id_endereco")));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setRenda(rs.getDouble("renda"));
+                usuario.setCriadoEm(rs.getTimestamp("criado_em"));
+                usuario.setAtualizadoEm(rs.getTimestamp("atualizado_em")); 
             }
-        }catch(SQLException e){
-            System.out.println("erro"+e.getMessage());
         }
-        return us;
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao consultar Usuário: " + e.getMessage());
+        }
+        
+        return usuario;
     }
     
+    public Usuario getByEmail(String email)
+    {
+        Usuario usuario = null;
+        
+        try
+        {
+            String sql = "SELECT * FROM usuarios WHERE email = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next())
+            {
+                usuario = new Usuario();
+
+                usuario.setId(rs.getInt("id"));
+                usuario.setPrimeiroNome(rs.getString("primeiro_nome"));
+                usuario.setSegundoNome(rs.getString("segundo_nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setNascimento(rs.getDate("nascimento"));
+                usuario.setEndereco(new EnderecoDAO().getById(rs.getInt("id_endereco")));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setRenda(rs.getDouble("renda"));
+                usuario.setCriadoEm(rs.getTimestamp("criado_em"));
+                usuario.setAtualizadoEm(rs.getTimestamp("atualizado_em")); 
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao consultar Usuário: " + e.getMessage());
+        }
+        
+        return usuario;
+    }
     
+    public Usuario getByCpf(String cpf)
+    {
+        Usuario usuario = null;
+        
+        try
+        {
+            String sql = "SELECT * FROM usuarios WHERE cpf = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next())
+            {
+                usuario = new Usuario();
+
+                usuario.setId(rs.getInt("id"));
+                usuario.setPrimeiroNome(rs.getString("primeiro_nome"));
+                usuario.setSegundoNome(rs.getString("segundo_nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setNascimento(rs.getDate("nascimento"));
+                usuario.setEndereco(new EnderecoDAO().getById(rs.getInt("id_endereco")));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setRenda(rs.getDouble("renda"));
+                usuario.setCriadoEm(rs.getTimestamp("criado_em"));
+                usuario.setAtualizadoEm(rs.getTimestamp("atualizado_em")); 
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao consultar Usuário: " + e.getMessage());
+        }
+        
+        return usuario;
+    }
+    
+    public Usuario login(String cpf, String senha)
+    {
+        try
+        {
+            String sql = "SELECT id, senha FROM usuarios WHERE cpf = ?";
+        
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next())
+            {
+                if (Password.isValid(senha, rs.getString("senha")))
+                {
+                    return getById(rs.getInt("id"));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao consultar Usuário: " + e.getMessage());
+        }
+        
+        return null;
+    }
 }

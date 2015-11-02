@@ -1,9 +1,10 @@
 package wallet.models;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Modelo do usuário/cliente.
@@ -13,71 +14,91 @@ import java.util.List;
  */
 public class Usuario
 {
+    private transient final PropertyChangeSupport propertyChangeSupport
+            = new PropertyChangeSupport(this);
+    
     private int id;
-    
     private String cpf;
-    
-    private String primeiro_nome;    
-    
-    private String segundo_nome;
-    
+    private String primeiroNome;
+    private String segundoNome;
     private Date nascimento;
-    
     private String email;
-    
-    private String endereco;
-    
-    private String bairro;
-    
-    private String cep;
-    
-    private String cidade;
-    
-    private String uf;
-    
-    private Double renda;
-    
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-    
+    private String senha;
+    private double renda;
+    private Endereco endereco;
+    private Date criadoEm;
+    private Date atualizadoEm;
+
+    public static final String PROP_ID = "id";
+    public static final String PROP_CPF = "cpf";
+    public static final String PROP_PRIMEIRONOME = "primeiroNome";
+    public static final String PROP_SEGUNDONOME = "segundoNome";
+    public static final String PROP_NASCIMENTO = "nascimento";
+    public static final String PROP_EMAIL = "email";
+    public static final String PROP_SENHA = "senha";
+    public static final String PROP_RENDA = "renda";
+    public static final String PROP_ENDERECO = "endereco";
+    public static final String PROP_CRIADOEM = "criadoEm";
+    public static final String PROP_ATUALIZADOEM = "atualizadoEm";
+
     public int getId()
     {
-        return this.id;
-    }
-    
-    public void setCPF(String cpf)
-    {
-        this.cpf = cpf;
-    }
-    
-    public String getCPF()
-    {
-        return this.cpf;
-    }
-    
-    public void setPrimeiroNome(String primeiro_nome)
-    {
-        this.primeiro_nome = primeiro_nome;
-    }
-    
-    public String getPrimeiroNome()
-    {
-        return this.primeiro_nome;
-    }
-    
-    public String getSegundoNome() {
-        return segundo_nome;
+        return id;
     }
 
-    public void setSegundoNome(String segundo_nome) {
-        this.segundo_nome = segundo_nome;
+    public void setId(int id)
+    {
+        int oldId = this.id;
+        this.id = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
+    }
+
+    public String getCpf()
+    {
+        return cpf;
+    }
+
+    public void setCpf(String cpf)
+    {
+        String oldCpf = this.cpf;
+        this.cpf = cpf;
+        propertyChangeSupport.firePropertyChange(PROP_CPF, oldCpf, cpf);
+    }
+
+    public String getPrimeiroNome()
+    {
+        return primeiroNome;
+    }
+
+    public void setPrimeiroNome(String primeiroNome)
+    {
+        String oldPrimeiroNome = this.primeiroNome;
+        this.primeiroNome = primeiroNome;
+        propertyChangeSupport.firePropertyChange(PROP_PRIMEIRONOME, oldPrimeiroNome, primeiroNome);
+    }
+
+    public String getSegundoNome()
+    {
+        return segundoNome;
     }
     
+    public void setSegundoNome(String segundoNome)
+    {
+        String oldSegundoNome = this.segundoNome;
+        this.segundoNome = segundoNome;
+        propertyChangeSupport.firePropertyChange(PROP_SEGUNDONOME, oldSegundoNome, segundoNome);
+    }
+    
+    public Date getNascimento()
+    {
+        return nascimento;
+    }
+
     public void setNascimento(Date nascimento)
     {
+        Date oldNascimento = this.nascimento;
         this.nascimento = nascimento;
+        propertyChangeSupport.firePropertyChange(PROP_NASCIMENTO, oldNascimento, nascimento);
     }
     
     public void setNascimento(String nascimento)
@@ -92,96 +113,109 @@ public class Usuario
         }
     }
     
-    public Date getNascimento()
+    public String getEmail()
     {
-        return this.nascimento;
+        return email;
     }
     
     public void setEmail(String email)
     {
+        String oldEmail = this.email;
         this.email = email;
+        propertyChangeSupport.firePropertyChange(PROP_EMAIL, oldEmail, email);
     }
     
-    public String getEmail()
+    public String getSenha()
     {
-        return this.email;
+        return senha;
     }
     
-    public void setEndereco(String endereco)       
+    public void setSenha(String senha)
     {
-        this.endereco = endereco;
-    }
-    
-    public String getEndereco()
-    {
-        return this.endereco;
-    }
-    
-    public void setBairro(String bairro)
-    {
-        this.bairro = bairro;
-    }
-    
-    public String getBairro()
-    {
-        return this.bairro;
-    }
-    
-    public void setCEP(String cep)
-    {
-        this.cep = cep;
-    }
-    
-    public String getCEP()
-    {
-        return this.cep;
-    }
-    
-    public void setCidade(String cidade)
-    {
-        this.cidade = cidade;
-    }
-    
-    public String getCidade()
-    {
-        return this.cidade;
-    }
-    
-    public void setUF(String uf)
-    {
-        this.uf = uf;
-    }
-    
-    public String getUF()
-    {
-        return this.uf;
-    }
-    
-    public void setRenda(double renda)
-    {
-        this.renda = renda;
+        String oldSenha = this.senha;
+        this.senha = senha;
+        propertyChangeSupport.firePropertyChange(PROP_SENHA, oldSenha, senha);
     }
     
     public double getRenda()
     {
-        return this.renda;
+        return renda;
     }
     
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public static boolean existeUsuario(String cpf)
+    public void setRenda(double renda)
     {
-        // Retorna a lista de usuários da AreaDeTrabalho.
-        List<Usuario> usuarios = wallet.telas.AreaDeTrabalho.getUsuarios();
-        
-        // Percorre e verifica se o usuário existe, se sim, retorna verdadeiro.
-        for (Usuario u : usuarios)
+        double oldRenda = this.renda;
+        this.renda = renda;
+        propertyChangeSupport.firePropertyChange(PROP_RENDA, oldRenda, renda);
+    }
+    
+    public Endereco getEndereco()
+    {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco)
+    {
+        Endereco oldEndereco = this.endereco;
+        this.endereco = endereco;
+        propertyChangeSupport.firePropertyChange(PROP_ENDERECO, oldEndereco, endereco);
+    }
+    
+    public Date getCriadoEm()
+    {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(Date criadoEm)
+    {
+        Date oldCriadoEm = this.criadoEm;
+        this.criadoEm = criadoEm;
+        propertyChangeSupport.firePropertyChange(PROP_CRIADOEM, oldCriadoEm, criadoEm);
+    }
+    
+    public void setCriadoEm(String criadoEm)
+    {
+        try
         {
-            if (u.getCPF().equals(cpf))
-            {
-                return true;
-            }
+            setCriadoEm(new SimpleDateFormat("dd/MM/yyyy").parse(criadoEm));
         }
-        
-        return false;
+        catch (ParseException e)
+        {
+            System.err.println("Data inválida.");
+        }
+    }
+    
+    public Date getAtualizadoEm()
+    {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(Date atualizadoEm)
+    {
+        Date oldAtualizadoEm = this.atualizadoEm;
+        this.atualizadoEm = atualizadoEm;
+        propertyChangeSupport.firePropertyChange(PROP_ATUALIZADOEM, oldAtualizadoEm, atualizadoEm);
+    }
+    
+    public void setAtualizadoEm(String atualizadoEm)
+    {
+        try
+        {
+            setAtualizadoEm(new SimpleDateFormat("dd/MM/yyyy").parse(atualizadoEm));
+        }
+        catch (ParseException e)
+        {
+            System.err.println("Data inválida.");
+        }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
