@@ -13,8 +13,9 @@ import wallet.models.Endereco;
  * @author Gustavo Marttos
  * @author Jordana Nogueira
  */
-public class EnderecoDAO extends DAO
+public class EnderecoDAO extends DAO<Endereco>
 {
+    @Override
     public List<Endereco> listar()
     {
         List<Endereco> enderecos = new LinkedList<>();
@@ -48,6 +49,7 @@ public class EnderecoDAO extends DAO
         return enderecos;
     }
     
+    @Override
     public boolean inserir(Endereco endereco)
     {
         try
@@ -84,6 +86,7 @@ public class EnderecoDAO extends DAO
         return false;
     }
     
+    @Override
     public boolean atualizar(Endereco endereco)
     {
         try
@@ -177,5 +180,10 @@ public class EnderecoDAO extends DAO
         }
         
         return endereco;
+    }
+
+    @Override
+    public boolean excluir(Endereco e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

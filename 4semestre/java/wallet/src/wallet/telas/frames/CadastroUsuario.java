@@ -50,6 +50,11 @@ public class CadastroUsuario extends JFrame
         
         ROOT = root;
     }
+    
+    private JFrame getRoot()
+    {
+        return ROOT;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -243,9 +248,9 @@ public class CadastroUsuario extends JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (ROOT != null)
+        if (getRoot() != null)
         {
-            ROOT.setVisible(true);
+            getRoot().setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -336,6 +341,10 @@ public class CadastroUsuario extends JFrame
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    /**
+     * Retorna informações do CEP informado.
+     * @param cep CEP informado.
+     */
     private void cepInfo(String cep)
     {
         EnderecoDAO enderecoDao = new EnderecoDAO();
@@ -375,6 +384,10 @@ public class CadastroUsuario extends JFrame
         }
     }
     
+    /**
+     * Valida o formulário para cadastro.
+     * @return Se o formulário está válido.
+     */
     private boolean validar()
     {
         UsuarioDAO usuarioDao;
@@ -440,7 +453,7 @@ public class CadastroUsuario extends JFrame
                 
                 LocalDate hoje = LocalDate.now();
                 LocalDate data = LocalDate.of(cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                        cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
                 
                 Period p = Period.between(data, hoje);
                 

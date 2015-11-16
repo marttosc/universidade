@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Modelo do usuário/cliente.
@@ -218,4 +219,92 @@ public class Usuario
     {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+
+        hash = 47 * hash + this.id;
+        hash = 47 * hash + Objects.hashCode(this.cpf);
+        hash = 47 * hash + Objects.hashCode(this.primeiroNome);
+        hash = 47 * hash + Objects.hashCode(this.segundoNome);
+        hash = 47 * hash + Objects.hashCode(this.nascimento);
+        hash = 47 * hash + Objects.hashCode(this.email);
+        hash = 47 * hash + Objects.hashCode(this.senha);
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.renda) ^ (Double.doubleToLongBits(this.renda) >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.criadoEm);
+        hash = 47 * hash + Objects.hashCode(this.atualizadoEm);
+
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        
+        final Usuario other = (Usuario) obj;
+        
+        if (this.id != other.id)
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.cpf, other.cpf))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.primeiroNome, other.primeiroNome))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.segundoNome, other.segundoNome))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.nascimento, other.nascimento))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.email, other.email))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha))
+        {
+            return false;
+        }
+        
+        if (Double.doubleToLongBits(this.renda) != Double.doubleToLongBits(other.renda))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.criadoEm, other.criadoEm))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.atualizadoEm, other.atualizadoEm))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+        
 }

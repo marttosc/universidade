@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS skuld;
 USE skuld;
 
 CREATE TABLE IF NOT EXISTS enderecos (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   cep VARCHAR(10) NOT NULL,
   logradouro VARCHAR(140) NULL DEFAULT NULL,
   bairro VARCHAR(80) NULL DEFAULT NULL,
@@ -28,10 +28,12 @@ CREATE TABLE IF NOT EXISTS usuarios (
   atualizado_em DATETIME NULL DEFAULT NULL,
   CONSTRAINT pk_usuario PRIMARY KEY (id),
   CONSTRAINT fk_endereco FOREIGN KEY (id_endereco) REFERENCES enderecos(id))
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS bandeiras (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   descricao VARCHAR(60) NOT NULL,
   CONSTRAINT pk_bandeira PRIMARY KEY (id))
 ENGINE = InnoDB;
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS cartoes (
    mes_validade INT NOT NULL,
    ano_validade INT NOT NULL,
    cvc INT NOT NULL,
-   emissao DATE NOT NULL,
+   limite DOUBLE NOT NULL,
    CONSTRAINT pk_cartoes PRIMARY KEY (id),
    CONSTRAINT fk_cartoes_bandeiras FOREIGN KEY (id_bandeira) REFERENCES bandeiras (id)
     ON DELETE NO ACTION
@@ -54,3 +56,4 @@ CREATE TABLE IF NOT EXISTS cartoes (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+INSERT INTO bandeiras (descricao) VALUES ("Visa"), ("MasterCard"), ("Diners Club"), ("American Express");

@@ -18,9 +18,9 @@ import wallet.models.Usuario;
  * @author Jordana Nogueira
  * @author Leandro Cazarini
  */
-
-public class UsuarioDAO extends DAO
+public class UsuarioDAO extends DAO<Usuario>
 {
+    @Override
     public List<Usuario> listar()
     {
         List<Usuario> usuarios = new LinkedList<>();
@@ -60,13 +60,14 @@ public class UsuarioDAO extends DAO
         return usuarios;
     }
     
+    @Override
     public boolean inserir(Usuario usuario)
     {
         try
         {
-           String sql = "INSERT INTO usuarios (primeiro_nome, segundo_nome, "
+            String sql = "INSERT INTO usuarios (primeiro_nome, segundo_nome, "
                    + "cpf, nascimento, id_endereco, email, senha, renda, "
-                   + "criado_em, atualizado_em) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                   + "criado_em, atualizado_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
            
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
@@ -102,6 +103,7 @@ public class UsuarioDAO extends DAO
         return false;
     }
 
+    @Override
     public Usuario getById(int id)
     {
         Usuario usuario = null;
@@ -245,5 +247,59 @@ public class UsuarioDAO extends DAO
         }
         
         return null;
+    }
+
+    @Override
+    public boolean atualizar(Usuario usuario)
+    {
+        try
+        {
+            String sql = "UPDATE usuarios SET primeiro_nome = ?, segundo_nome = ?, "
+                    + "nascimento = ?, id_endereco = ?, email = ?, senha = ?, "
+                    + "renda = ?, atualizado_em = ? WHERE id = ?";
+           
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            int seq = 1;
+            
+            stmt.setString(seq++, usuario.getPrimeiroNome());
+            stmt.setString(seq++, usuario.getSegundoNome());
+            stmt.setDate(seq++, new Date(usuario.getNascimento().getTime()));
+            stmt.setInt(seq++, usuario.getEndereco().getId());
+            stmt.setString(seq++, usuario.getEmail());
+            stmt.setString(seq++, usuario.getSenha());
+            stmt.setDouble(seq++, usuario.getRenda());
+            stmt.setTimestamp(seq++, new Timestamp(usuario.getAtualizadoEm().getTime()));
+            stmt.setInt(seq++, usuario.getId());
+            
+            return (stmt.executeUpdate() > 0);
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Erro ao atualizar Usuário: " + e.getMessage());
+        }
+        
+        return false;
+    }
+
+    @Override
+    public boolean excluir(Usuario usuario)
+    {
+        try
+        {
+            String sql = "DELETE FROM usuarios WHERE id = ?";
+           
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setInt(1, usuario.getId());
+            
+            return (stmt.executeUpdate() > 0);
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Erro ao excluir Usuário: " + e.getMessage());
+        }
+        
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package wallet.models;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Objects;
 
 /**
  * Modelo para as bandeiras dos cartões.
@@ -53,4 +54,44 @@ public class Bandeira
     {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.descricao);
+        
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Bandeira other = (Bandeira) obj;
+        
+        if (this.id != other.id)
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.descricao, other.descricao))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
 }

@@ -14,6 +14,12 @@ public class Password
 {
     public static final String DEFAULT_SALT = "SKULD";
 
+    /**
+     * Retorna a senha criptografada.
+     * @param senha Texto a ser criptografado.
+     * @param salt Salt gerado.
+     * @return Senha criptografada.
+     */
     public static String getPassword(String senha, String salt)
     {
         String criptografado;
@@ -43,6 +49,12 @@ public class Password
         return criptografado;
     }
     
+    /**
+     * Retorna a senha criptografada.
+     * @param senha Texto a ser criptografado.
+     * @param useRandomSalt Se usará salt randômico ou não.
+     * @return Senha criptografada.
+     */
     public static String getPassword(String senha, boolean useRandomSalt)
     {
         try
@@ -62,6 +74,11 @@ public class Password
         }
     }
     
+    /**
+     * Retorna a senha criptografada.
+     * @param password Texto a ser criptografado.
+     * @return Senha criptografada.
+     */
     public static String getPassword(String password)
     {
         try
@@ -74,16 +91,34 @@ public class Password
         }
     }
     
+    /**
+     * Verifica se a senha informada é válida.
+     * @param senha Texto a ser comparado.
+     * @param criptografado Hash da senha.
+     * @return Se a verificação entre senhas casam.
+     */
     public static boolean isValid(String senha, String criptografado)
     {
         return isValid(senha, DEFAULT_SALT, criptografado);
     }
     
+    /**
+     * Verifica se a senha informada é válida.
+     * @param senha Texto a ser comparado.
+     * @param salt Salt gerado.
+     * @param criptografado Hash da senha.
+     * @return Se a verificação entre senhas casam.
+     */
     public static boolean isValid(String senha, String salt, String criptografado)
     {
         return getPassword(senha, salt).equals(criptografado);
     }
     
+    /**
+     * Retorna um salt randômico.
+     * @return O salt.
+     * @throws NoSuchAlgorithmException 
+     */
     public static String getSalt() throws NoSuchAlgorithmException
     {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
@@ -95,6 +130,11 @@ public class Password
         return sr.toString();
     }
     
+    /**
+     * Transfore a senha de char para String.
+     * @param senha Cadeia de char de senha.
+     * @return String da senha.
+     */
     public static String getString(char[] senha)
     {
         StringBuilder pwd = new StringBuilder();

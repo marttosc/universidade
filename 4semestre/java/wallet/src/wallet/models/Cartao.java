@@ -2,9 +2,6 @@ package wallet.models;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Modelo para os cartões de crédito.
@@ -25,7 +22,7 @@ public class Cartao
     private int mesValidade;
     private int anoValidade;
     private int cvc;
-    private Date emissao;
+    private double limite;
     
     public static final String PROP_ID = "id";
     public static final String PROP_USUARIO = "usuario";
@@ -34,7 +31,7 @@ public class Cartao
     public static final String PROP_MESVALIDADE = "mesValidade";
     public static final String PROP_ANOVALIDADE = "anoValidade";
     public static final String PROP_CVC = "cvc";
-    public static final String PROP_EMISSAO = "emissao";
+    public static final String PROP_LIMITE = "limite";
     
     public int getId()
     {
@@ -120,28 +117,16 @@ public class Cartao
         propertyChangeSupport.firePropertyChange(PROP_CVC, oldCvc, cvc);
     }
     
-    public Date getEmissao()
+    public double getLimite()
     {
-        return emissao;
-    }
-
-    public void setEmissao(Date emissao)
-    {
-        Date oldEmissao = this.emissao;
-        this.emissao = emissao;
-        propertyChangeSupport.firePropertyChange(PROP_EMISSAO, oldEmissao, emissao);
+        return limite;
     }
     
-    public void setEmissao(String emissao)
+    public void setLimite(double limite)
     {
-        try
-        {
-            setEmissao(new SimpleDateFormat("dd/MM/yyyy").parse(emissao));
-        }
-        catch (ParseException e)
-        {
-            System.err.println("Data inválida.");
-        }
+        double oldLimite = this.limite;
+        this.limite = limite;
+        propertyChangeSupport.firePropertyChange(PROP_LIMITE, oldLimite, limite);
     }
     
     public void addPropertyChangeListener(PropertyChangeListener listener)

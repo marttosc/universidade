@@ -143,19 +143,19 @@ public class Login extends javax.swing.JFrame
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String cpf = txtCPF.getText().trim();
-        
+
         char[] pwd = txtSenha.getPassword();
-        
+
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        
+
         Usuario usuario = usuarioDAO.login(cpf, Password.getString(pwd));
-        
+
         if (usuario != null)
         {
             TelaPrincipal tela = new TelaPrincipal(usuario);
-            
+
             tela.setVisible(true);
-            
+
             dispose();
         }
         else
@@ -166,21 +166,25 @@ public class Login extends javax.swing.JFrame
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         CadastroUsuario cadUsuario = new CadastroUsuario(this);
-        
+
         cadUsuario.setVisible(true);
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
-    
+
+    /**
+     * Verifica se pode liberar o botão de login ou não.
+     * @return Se o pode liberar o botão.
+     */
     private boolean liberarBotaoLogin()
     {        
         String cpf = Helper.removerMascara(txtCPF.getText().trim());
-        
+
         char[] pwd = txtSenha.getPassword();
-        
+
         return (Helper.validarCPF(cpf) && pwd.length >= 6);
     }
-    
+
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(new Runnable() {

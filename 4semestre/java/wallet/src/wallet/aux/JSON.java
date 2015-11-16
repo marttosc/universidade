@@ -15,6 +15,11 @@ import org.json.JSONObject;
  */
 public class JSON
 {
+    /**
+     * Ler todas as informações do JSON.
+     * @param rd Reader do JSON
+     * @return String contendo informações do JSON.
+     */
     private static String readAll(Reader rd)
     {
         StringBuilder sb = new StringBuilder();
@@ -36,6 +41,11 @@ public class JSON
         return sb.toString();
     }
     
+    /**
+     * Lê o JSON via uma URL.
+     * @param url URL a ser lida.
+     * @return Objeto JSON para leitura.
+     */
     public static JSONObject lerJsonViaUrl(String url)
     {
         InputStream is = null;

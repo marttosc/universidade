@@ -10,6 +10,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LookAndFeel
 {
+    /**
+     * LookAndFeel - Tema: Nimbus
+     * Vem instalador com a JVM, só precisa habilitar.
+     */
     public static void nimbus()
     {
         try
