@@ -1,7 +1,7 @@
-package wallet.telas.frames.cadastros;
+package wallet.telas.frames;
 
 import java.awt.Color;
-import static java.awt.image.ImageObserver.ERROR;
+import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -11,7 +11,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
-import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.Timer;
 import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.json.JSONException;
@@ -23,102 +24,36 @@ import wallet.dao.EnderecoDAO;
 import wallet.dao.UsuarioDAO;
 import wallet.models.Endereco;
 import wallet.models.Usuario;
-import wallet.telas.AreaDeTrabalho;
 
 /**
- * Cadastro de usuário interno.
+ * Tela de cadastro de usuário via login.
  * 
  * @author Gustavo Marttos
  * @author Jordana Nogueira
- * @author Leandro Cazarini
+ * @authro Leandro Cazarini
  */
-public class FrameCadastroUsuario extends javax.swing.JInternalFrame
-{    
-    private static Usuario Usuario = null;
-
-    public FrameCadastroUsuario() {
+public class CadastroUsuario extends JFrame
+{
+    private static JFrame ROOT = null;
+    
+    public CadastroUsuario()
+    {
         initComponents();
         
-        setTitle("Cadastro de Usuários");
-        
-        txtCPF.setEnabled(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
     
-    public FrameCadastroUsuario(Usuario usuario)
+    public CadastroUsuario(JFrame root)
     {
         this();
         
-        setTitle("Edição de Usuários");
-        
-        txtCPF.setEnabled(false);
-
-        FrameCadastroUsuario.Usuario = usuario;
-        
-        preencher();
+        ROOT = root;
     }
     
-    /**
-     * Retorna o usuário a ser editado.
-     * @return Usuário a ser retornado.
-     */
-    public Usuario getUsuario()
+    private JFrame getRoot()
     {
-        return FrameCadastroUsuario.Usuario;
-    }
-    
-    /**
-     * Preenche o formulário ao editar um usuário.
-     */
-    private void preencher()
-    {
-        Usuario usuario = getUsuario();
-        
-        txtPrimeiroNome.setText(usuario.getPrimeiroNome());
-        txtSegundoNome.setText(usuario.getSegundoNome());
-        txtNascimento.setValue(new SimpleDateFormat("dd/MM/yyyy")
-                .format(usuario.getNascimento()));
-        txtEmail.setText(usuario.getEmail());
-        txtCPF.setValue(usuario.getCpf());
-        
-        String strRenda = Double.toString(usuario.getRenda());
-        
-        if (strRenda.substring(strRenda.length() - 1).equals("0"))
-        {
-            strRenda += "0";
-        }
-        
-        txtRenda.setText(strRenda);
-        
-        if (usuario.getEndereco() != null)
-        {
-            txtCEP.setValue(usuario.getEndereco().getCep());
-            txtLogradouro.setText(usuario.getEndereco().getLogradouro());
-            txtBairro.setText(usuario.getEndereco().getBairro());
-            txtCidade.setText(usuario.getEndereco().getLocalidade());
-            cbbUF.setSelectedItem(usuario.getEndereco().getUf());
-        }
-    }
-    
-    /**
-     * Limpa um formulário ao excluir um usuário.
-     */
-    private void limpar()
-    {
-        txtPrimeiroNome.setText("");
-        txtSegundoNome.setText("");
-        txtNascimento.setValue(null);
-        txtEmail.setText("");
-        txtCPF.setValue(null);
-        txtCPF.setEnabled(true);
-        txtSenha.setText("");
-        txtSenhaConfirma.setText("");
-        txtRenda.setText("");
-        txtCEP.setValue(null);
-        txtLogradouro.setText("");
-        txtBairro.setText("");
-        txtCidade.setText("");
-        cbbUF.setSelectedIndex(-1);
-        txtRenda.setText("");
+        return ROOT;
     }
 
     @SuppressWarnings("unchecked")
@@ -126,106 +61,64 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        lstEstados = lstEstados = new LinkedList<>()
-        ;
-        lblPrimeiroNome = new javax.swing.JLabel();
+        lstEstados = new LinkedList<>();
         txtPrimeiroNome = new javax.swing.JTextField();
-        lblSegundoNome = new javax.swing.JLabel();
+        lblPrimeiroNome = new javax.swing.JLabel();
         txtSegundoNome = new javax.swing.JTextField();
-        lblNascimento = new javax.swing.JLabel();
-        txtNascimento = new javax.swing.JFormattedTextField();
-        lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        lblCPF = new javax.swing.JLabel();
+        lblSegundoNome = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
-        lblSenha = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
-        lblSenhaConfirma = new javax.swing.JLabel();
-        txtSenhaConfirma = new javax.swing.JPasswordField();
-        lblRenda = new javax.swing.JLabel();
-        txtRenda = new wallet.aux.swing.text.JNumberFormatField();
-        lblCEP = new javax.swing.JLabel();
+        lblCPF = new javax.swing.JLabel();
+        txtNascimento = new javax.swing.JFormattedTextField();
+        lblNascimento = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
         txtCEP = new javax.swing.JFormattedTextField();
-        btnCEPBuscar = new javax.swing.JButton();
-        lblLogradouro = new javax.swing.JLabel();
+        lblCEP = new javax.swing.JLabel();
         txtLogradouro = new javax.swing.JTextField();
-        lblBairro = new javax.swing.JLabel();
+        lblLogradouro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
+        lblBairro = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         lblCidade = new javax.swing.JLabel();
         cbbUF = new javax.swing.JComboBox();
         lblUF = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
+        lblSenha = new javax.swing.JLabel();
+        txtSenhaConfirma = new javax.swing.JPasswordField();
+        lblSenhaConfirma = new javax.swing.JLabel();
+        btnCEPBuscar = new javax.swing.JButton();
         jspSeparador = new javax.swing.JSeparator();
+        btnCadastrar = new javax.swing.JButton();
         lblErroCadastro = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JButton();
+        txtRenda = new wallet.aux.swing.text.JNumberFormatField();
+        lblRenda = new javax.swing.JLabel();
 
         lstEstados = Arrays.asList(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO" });
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("Cadastro de Usuários");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Criar nova conta - Skuld");
         setMaximumSize(new java.awt.Dimension(510, 460));
         setMinimumSize(new java.awt.Dimension(510, 460));
-        setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(510, 460));
-        setRequestFocusEnabled(false);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-                formCadastroUsuarioClose(evt);
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
         getContentPane().setLayout(null);
+        getContentPane().add(txtPrimeiroNome);
+        txtPrimeiroNome.setBounds(20, 50, 150, 27);
 
         lblPrimeiroNome.setText("Primeiro Nome");
         getContentPane().add(lblPrimeiroNome);
         lblPrimeiroNome.setBounds(20, 20, 103, 17);
-        getContentPane().add(txtPrimeiroNome);
-        txtPrimeiroNome.setBounds(20, 50, 150, 27);
+        getContentPane().add(txtSegundoNome);
+        txtSegundoNome.setBounds(190, 50, 150, 27);
 
         lblSegundoNome.setText("Segundo Nome");
         getContentPane().add(lblSegundoNome);
         lblSegundoNome.setBounds(190, 20, 107, 17);
-        getContentPane().add(txtSegundoNome);
-        txtSegundoNome.setBounds(190, 50, 150, 27);
-
-        lblNascimento.setText("Nascimento");
-        getContentPane().add(lblNascimento);
-        lblNascimento.setBounds(360, 20, 120, 17);
-
-        try
-        {
-            javax.swing.text.MaskFormatter formatNasc = new javax.swing.text.MaskFormatter("##/##/####");
-
-            txtNascimento = new javax.swing.JFormattedTextField(formatNasc);
-        }
-        catch (Exception e)
-        {
-        }
-        getContentPane().add(txtNascimento);
-        txtNascimento.setBounds(360, 50, 120, 27);
-
-        lblEmail.setText("Email");
-        getContentPane().add(lblEmail);
-        lblEmail.setBounds(20, 90, 37, 17);
-        getContentPane().add(txtEmail);
-        txtEmail.setBounds(20, 120, 320, 27);
-
-        lblCPF.setText("CPF");
-        getContentPane().add(lblCPF);
-        lblCPF.setBounds(360, 90, 27, 17);
 
         try
         {
@@ -239,27 +132,31 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
         getContentPane().add(txtCPF);
         txtCPF.setBounds(360, 120, 120, 27);
 
-        lblSenha.setText("Senha");
-        getContentPane().add(lblSenha);
-        lblSenha.setBounds(20, 160, 43, 17);
-        getContentPane().add(txtSenha);
-        txtSenha.setBounds(20, 190, 150, 27);
+        lblCPF.setText("CPF");
+        getContentPane().add(lblCPF);
+        lblCPF.setBounds(360, 90, 27, 17);
 
-        lblSenhaConfirma.setText("Confirme a senha");
-        getContentPane().add(lblSenhaConfirma);
-        lblSenhaConfirma.setBounds(190, 160, 130, 17);
-        getContentPane().add(txtSenhaConfirma);
-        txtSenhaConfirma.setBounds(190, 190, 150, 27);
+        try
+        {
+            javax.swing.text.MaskFormatter formatNasc = new javax.swing.text.MaskFormatter("##/##/####");
 
-        lblRenda.setText("Renda");
-        getContentPane().add(lblRenda);
-        lblRenda.setBounds(360, 160, 49, 17);
-        getContentPane().add(txtRenda);
-        txtRenda.setBounds(360, 190, 120, 27);
+            txtNascimento = new javax.swing.JFormattedTextField(formatNasc);
+        }
+        catch (Exception e)
+        {
+        }
+        getContentPane().add(txtNascimento);
+        txtNascimento.setBounds(360, 50, 120, 27);
 
-        lblCEP.setText("CEP");
-        getContentPane().add(lblCEP);
-        lblCEP.setBounds(20, 230, 28, 17);
+        lblNascimento.setText("Nascimento");
+        getContentPane().add(lblNascimento);
+        lblNascimento.setBounds(360, 20, 120, 17);
+        getContentPane().add(txtEmail);
+        txtEmail.setBounds(20, 120, 320, 27);
+
+        lblEmail.setText("Email");
+        getContentPane().add(lblEmail);
+        lblEmail.setBounds(20, 90, 37, 17);
 
         try
         {
@@ -273,26 +170,21 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
         getContentPane().add(txtCEP);
         txtCEP.setBounds(20, 260, 88, 27);
 
-        btnCEPBuscar.setText("Ir");
-        btnCEPBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCEPBuscarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCEPBuscar);
-        btnCEPBuscar.setBounds(110, 260, 60, 27);
+        lblCEP.setText("CEP");
+        getContentPane().add(lblCEP);
+        lblCEP.setBounds(20, 230, 28, 17);
+        getContentPane().add(txtLogradouro);
+        txtLogradouro.setBounds(190, 260, 290, 27);
 
         lblLogradouro.setText("Logradouro");
         getContentPane().add(lblLogradouro);
         lblLogradouro.setBounds(190, 230, 82, 17);
-        getContentPane().add(txtLogradouro);
-        txtLogradouro.setBounds(190, 260, 290, 27);
+        getContentPane().add(txtBairro);
+        txtBairro.setBounds(20, 330, 150, 27);
 
         lblBairro.setText("Bairro");
         getContentPane().add(lblBairro);
         lblBairro.setBounds(20, 300, 42, 17);
-        getContentPane().add(txtBairro);
-        txtBairro.setBounds(20, 330, 150, 27);
         getContentPane().add(txtCidade);
         txtCidade.setBounds(190, 330, 210, 27);
 
@@ -309,43 +201,62 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
         lblUF.setText("UF");
         getContentPane().add(lblUF);
         lblUF.setBounds(420, 300, 18, 17);
+        getContentPane().add(txtSenha);
+        txtSenha.setBounds(20, 190, 150, 27);
 
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        lblSenha.setText("Senha");
+        getContentPane().add(lblSenha);
+        lblSenha.setBounds(20, 160, 43, 17);
+        getContentPane().add(txtSenhaConfirma);
+        txtSenhaConfirma.setBounds(190, 190, 150, 27);
+
+        lblSenhaConfirma.setText("Confirme a senha");
+        getContentPane().add(lblSenhaConfirma);
+        lblSenhaConfirma.setBounds(190, 160, 130, 17);
+
+        btnCEPBuscar.setText("Ir");
+        btnCEPBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnCEPBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(390, 400, 90, 27);
+        getContentPane().add(btnCEPBuscar);
+        btnCEPBuscar.setBounds(110, 260, 60, 27);
         getContentPane().add(jspSeparador);
         jspSeparador.setBounds(20, 380, 470, 20);
-        getContentPane().add(lblErroCadastro);
-        lblErroCadastro.setBounds(20, 400, 300, 20);
 
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnExcluir);
-        btnExcluir.setBounds(290, 400, 90, 27);
+        getContentPane().add(btnCadastrar);
+        btnCadastrar.setBounds(400, 400, 90, 27);
+        getContentPane().add(lblErroCadastro);
+        lblErroCadastro.setBounds(20, 400, 300, 20);
+        getContentPane().add(txtRenda);
+        txtRenda.setBounds(360, 190, 120, 27);
+
+        lblRenda.setText("Renda");
+        getContentPane().add(lblRenda);
+        lblRenda.setBounds(360, 160, 49, 17);
 
         bindingGroup.bind();
 
-        setBounds(0, 0, 516, 482);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formCadastroUsuarioClose(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formCadastroUsuarioClose
-        JDesktopPane dsk = getDesktopPane();
-        
-        ((AreaDeTrabalho) dsk).fecharCadastroUsuario();
-    }//GEN-LAST:event_formCadastroUsuarioClose
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (getRoot() != null)
+        {
+            getRoot().setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     private void btnCEPBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEPBuscarActionPerformed
         String cep = txtCEP.getText().trim();
-
+        
         if (cep.length() < 8)
         {
             txtLogradouro.setText("");
@@ -361,126 +272,77 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_btnCEPBuscarActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (validar())
         {
             UsuarioDAO usuarioDao = new UsuarioDAO();
-
-            Usuario usuario = getUsuario();
-
-            EnderecoDAO enderecoDao = new EnderecoDAO();
-
-            // Criar um novo usuário.
-            if (usuario == null)
-            {
-                usuario = new Usuario();
-
-                usuario.setCpf(txtCPF.getValue().toString());
-                usuario.setCriadoEm(new Date());
-            }
-
+            Usuario usuario = new Usuario();
+            
             usuario.setPrimeiroNome(txtPrimeiroNome.getText().trim());
             usuario.setSegundoNome(txtSegundoNome.getText().trim());
             usuario.setNascimento(txtNascimento.getValue().toString());
             usuario.setEmail(txtEmail.getText().trim());
+            usuario.setCpf(txtCPF.getValue().toString());
+            usuario.setSenha(Password.getPassword(Password.getString(
+                    txtSenha.getPassword()), false));
             usuario.setRenda(Helper.getDouble(txtRenda.getText()));
+            usuario.setCriadoEm(new Date());
             usuario.setAtualizadoEm(new Date());
             
-            if (usuario.getId() > 0)
-            {
-                if (txtSenha.getPassword().length > 6)
-                {
-                    usuario.setSenha(Password.getPassword(Password.getString(
-                    txtSenha.getPassword()), false));
-                }
-            }
-            else
-            {
-                usuario.setSenha(Password.getPassword(Password.getString(
-                    txtSenha.getPassword()), false));
-            }
-
+            // Verifica se o endereço existe, senão cadastra também.
+            
+            EnderecoDAO enderecoDao = new EnderecoDAO();
+        
             Endereco endereco = enderecoDao.getByCep(txtCEP.getText().trim());
-
+            
             if (endereco == null)
             {
                 endereco = new Endereco();
-            }
-            
-            endereco.setCep(txtCEP.getText().trim());
-            endereco.setLogradouro(txtLogradouro.getText().trim());
-            endereco.setBairro(txtBairro.getText().trim());
-            endereco.setLocalidade(txtCidade.getText().trim());
-            endereco.setUf(cbbUF.getSelectedItem().toString());
-            
-            if (endereco.getId() > 0)
-            {
-                enderecoDao.atualizar(endereco);
-            }
-            else
-            {
+                
+                endereco.setCep(txtCEP.getText().trim());
+                endereco.setLogradouro(txtLogradouro.getText().trim());
+                endereco.setBairro(txtBairro.getText().trim());
+                endereco.setLocalidade(txtCidade.getText().trim());
+                endereco.setUf(cbbUF.getSelectedItem().toString());
+                
                 if (!enderecoDao.inserir(endereco))
                 {
                     System.err.println("Endereço não cadastrado.");
                 }
             }
-
-            usuario.setEndereco(endereco);
-
-            if (usuario.getId() > 0)
-            {
-                // Atualizar usuário.
-                if (usuarioDao.atualizar(usuario))
-                {
-                    Helper.mostrarMensagem("Conta atualizada com sucesso!",
-                            Color.GREEN, lblErroCadastro);
-                }
-                else
-                {
-                    Helper.mostrarMensagem("Não foi possível atualizar a conta.",
-                            Color.ORANGE, lblErroCadastro);
-                }
-            }
             else
             {
-                // Cadastrar usuário.
-                if (usuarioDao.inserir(usuario))
-                {
-                    Helper.mostrarMensagem("Conta cadastrada com sucesso!",
-                            Color.GREEN, lblErroCadastro);
-                }
-                else
-                {
-                    Helper.mostrarMensagem("Não foi possível cadastrar a conta.",
-                            Color.ORANGE, lblErroCadastro);
-                }
+                enderecoDao.atualizar(endereco);
             }
-        }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (getUsuario() != null)
-        {
-            UsuarioDAO usuarioDao = new UsuarioDAO();
-            Usuario usuario = getUsuario();
             
-            if (usuarioDao.excluir(usuario))
+            usuario.setEndereco(endereco);
+            
+            if (usuarioDao.inserir(usuario))
             {
-                Helper.mostrarMensagem("Conta excluída com sucesso!",
-                            Color.GREEN, lblErroCadastro);
+                btnCadastrar.setEnabled(false);
+
+                Helper.mostrarMensagem("Conta cadastrada com sucesso! Aguarde...",
+                        Color.GREEN, lblErroCadastro);
                 
-                limpar();
+                Timer timer = new Timer(2000, (ActionEvent e) -> {
+                    this.dispose();
+
+                    formWindowClosing(null);
+                });
+                
+                timer.setRepeats(false);
+                timer.start();
             }
             else
             {
-                Helper.mostrarMensagem("Não foi possível excluir a conta.",
-                            Color.ORANGE, lblErroCadastro);
+                Helper.mostrarMensagem("Não foi possível cadastrar sua conta.",
+                        Color.ORANGE, lblErroCadastro);
             }
         }
-    }//GEN-LAST:event_btnExcluirActionPerformed
-    
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
     /**
-     * Retorna as informações do CEP informado.
+     * Retorna informações do CEP informado.
      * @param cep CEP informado.
      */
     private void cepInfo(String cep)
@@ -523,7 +385,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
     }
     
     /**
-     * Verifica se o formulário está válido.
+     * Valida o formulário para cadastro.
      * @return Se o formulário está válido.
      */
     private boolean validar()
@@ -633,7 +495,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
             
             usuario = usuarioDao.getByEmail(email);
             
-            if (usuario != null && getUsuario() == null)
+            if (usuario != null)
             {
                 Helper.mostrarMensagem("Email já cadastrado.",
                         Color.RED, lblErroCadastro);
@@ -659,7 +521,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
             
             usuario = usuarioDao.getByCpf(cpf.toString().trim());
             
-            if (usuario != null && getUsuario() == null)
+            if (usuario != null)
             {
                 Helper.mostrarMensagem("CPF já cadastrado.",
                         Color.RED, lblErroCadastro);
@@ -670,19 +532,17 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
             }
         }
         
-        if ((getUsuario() == null && senha.length < 6)
-                || (senha.length >= 1 && senha.length < 6))
+        if (senha.length < 6)
         {
             Helper.mostrarMensagem("A senha deve possuir 6 ou mais caracteres.",
                     Color.RED, lblErroCadastro);
-
+            
             txtSenha.requestFocus();
-
+            
             return false;
         }
-        
-        if (!Password.getString(senha).trim().equals(
-                Password.getString(senhaConf).trim()))
+        else if (!Password.getString(senha).trim().equals(
+                Password.getString(senhaConf).trim()) || senhaConf.length < 6)
         {
             Helper.mostrarMensagem("Confirme a sua senha.",
                     Color.RED, lblErroCadastro);
@@ -756,11 +616,16 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
         
         return true;
     }
+    
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastroUsuario().setVisible(true);
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCEPBuscar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JComboBox cbbUF;
     private javax.swing.JSeparator jspSeparador;
     private javax.swing.JLabel lblBairro;
@@ -777,7 +642,7 @@ public class FrameCadastroUsuario extends javax.swing.JInternalFrame
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSenhaConfirma;
     private javax.swing.JLabel lblUF;
-    private java.util.List lstEstados;
+    private java.util.List<String> lstEstados;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCEP;
     private javax.swing.JFormattedTextField txtCPF;

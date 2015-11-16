@@ -1,9 +1,11 @@
 package wallet.models;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Modelo do usuário/cliente.
@@ -13,61 +15,91 @@ import java.util.List;
  */
 public class Usuario
 {
+    private transient final PropertyChangeSupport propertyChangeSupport
+            = new PropertyChangeSupport(this);
+    
     private int id;
-    
     private String cpf;
-    
-    private String nome;
-    
+    private String primeiroNome;
+    private String segundoNome;
     private Date nascimento;
-    
     private String email;
-    
-    private String endereco;
-    
-    private String bairro;
-    
-    private String cep;
-    
-    private String cidade;
-    
-    private String uf;
-    
-    private Double renda;
-    
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-    
+    private String senha;
+    private double renda;
+    private Endereco endereco;
+    private Date criadoEm;
+    private Date atualizadoEm;
+
+    public static final String PROP_ID = "id";
+    public static final String PROP_CPF = "cpf";
+    public static final String PROP_PRIMEIRONOME = "primeiroNome";
+    public static final String PROP_SEGUNDONOME = "segundoNome";
+    public static final String PROP_NASCIMENTO = "nascimento";
+    public static final String PROP_EMAIL = "email";
+    public static final String PROP_SENHA = "senha";
+    public static final String PROP_RENDA = "renda";
+    public static final String PROP_ENDERECO = "endereco";
+    public static final String PROP_CRIADOEM = "criadoEm";
+    public static final String PROP_ATUALIZADOEM = "atualizadoEm";
+
     public int getId()
     {
-        return this.id;
+        return id;
     }
-    
-    public void setCPF(String cpf)
+
+    public void setId(int id)
     {
+        int oldId = this.id;
+        this.id = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
+    }
+
+    public String getCpf()
+    {
+        return cpf;
+    }
+
+    public void setCpf(String cpf)
+    {
+        String oldCpf = this.cpf;
         this.cpf = cpf;
+        propertyChangeSupport.firePropertyChange(PROP_CPF, oldCpf, cpf);
     }
-    
-    public String getCPF()
+
+    public String getPrimeiroNome()
     {
-        return this.cpf;
+        return primeiroNome;
     }
-    
-    public void setNome(String nome)
+
+    public void setPrimeiroNome(String primeiroNome)
     {
-        this.nome = nome;
+        String oldPrimeiroNome = this.primeiroNome;
+        this.primeiroNome = primeiroNome;
+        propertyChangeSupport.firePropertyChange(PROP_PRIMEIRONOME, oldPrimeiroNome, primeiroNome);
     }
-    
-    public String getNome()
+
+    public String getSegundoNome()
     {
-        return this.nome;
+        return segundoNome;
     }
     
+    public void setSegundoNome(String segundoNome)
+    {
+        String oldSegundoNome = this.segundoNome;
+        this.segundoNome = segundoNome;
+        propertyChangeSupport.firePropertyChange(PROP_SEGUNDONOME, oldSegundoNome, segundoNome);
+    }
+    
+    public Date getNascimento()
+    {
+        return nascimento;
+    }
+
     public void setNascimento(Date nascimento)
     {
+        Date oldNascimento = this.nascimento;
         this.nascimento = nascimento;
+        propertyChangeSupport.firePropertyChange(PROP_NASCIMENTO, oldNascimento, nascimento);
     }
     
     public void setNascimento(String nascimento)
@@ -82,96 +114,197 @@ public class Usuario
         }
     }
     
-    public Date getNascimento()
+    public String getEmail()
     {
-        return this.nascimento;
+        return email;
     }
     
     public void setEmail(String email)
     {
+        String oldEmail = this.email;
         this.email = email;
+        propertyChangeSupport.firePropertyChange(PROP_EMAIL, oldEmail, email);
     }
     
-    public String getEmail()
+    public String getSenha()
     {
-        return this.email;
+        return senha;
     }
     
-    public void setEndereco(String endereco)       
+    public void setSenha(String senha)
     {
-        this.endereco = endereco;
-    }
-    
-    public String getEndereco()
-    {
-        return this.endereco;
-    }
-    
-    public void setBairro(String bairro)
-    {
-        this.bairro = bairro;
-    }
-    
-    public String getBairro()
-    {
-        return this.bairro;
-    }
-    
-    public void setCEP(String cep)
-    {
-        this.cep = cep;
-    }
-    
-    public String getCEP()
-    {
-        return this.cep;
-    }
-    
-    public void setCidade(String cidade)
-    {
-        this.cidade = cidade;
-    }
-    
-    public String getCidade()
-    {
-        return this.cidade;
-    }
-    
-    public void setUF(String uf)
-    {
-        this.uf = uf;
-    }
-    
-    public String getUF()
-    {
-        return this.uf;
-    }
-    
-    public void setRenda(double renda)
-    {
-        this.renda = renda;
+        String oldSenha = this.senha;
+        this.senha = senha;
+        propertyChangeSupport.firePropertyChange(PROP_SENHA, oldSenha, senha);
     }
     
     public double getRenda()
     {
-        return this.renda;
+        return renda;
     }
     
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public static boolean existeUsuario(String cpf)
+    public void setRenda(double renda)
     {
-        // Retorna a lista de usuários da AreaDeTrabalho.
-        List<Usuario> usuarios = wallet.telas.AreaDeTrabalho.getUsuarios();
-        
-        // Percorre e verifica se o usuário existe, se sim, retorna verdadeiro.
-        for (Usuario u : usuarios)
+        double oldRenda = this.renda;
+        this.renda = renda;
+        propertyChangeSupport.firePropertyChange(PROP_RENDA, oldRenda, renda);
+    }
+    
+    public Endereco getEndereco()
+    {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco)
+    {
+        Endereco oldEndereco = this.endereco;
+        this.endereco = endereco;
+        propertyChangeSupport.firePropertyChange(PROP_ENDERECO, oldEndereco, endereco);
+    }
+    
+    public Date getCriadoEm()
+    {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(Date criadoEm)
+    {
+        Date oldCriadoEm = this.criadoEm;
+        this.criadoEm = criadoEm;
+        propertyChangeSupport.firePropertyChange(PROP_CRIADOEM, oldCriadoEm, criadoEm);
+    }
+    
+    public void setCriadoEm(String criadoEm)
+    {
+        try
         {
-            if (u.getCPF().equals(cpf))
-            {
-                return true;
-            }
+            setCriadoEm(new SimpleDateFormat("dd/MM/yyyy").parse(criadoEm));
+        }
+        catch (ParseException e)
+        {
+            System.err.println("Data inválida.");
+        }
+    }
+    
+    public Date getAtualizadoEm()
+    {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(Date atualizadoEm)
+    {
+        Date oldAtualizadoEm = this.atualizadoEm;
+        this.atualizadoEm = atualizadoEm;
+        propertyChangeSupport.firePropertyChange(PROP_ATUALIZADOEM, oldAtualizadoEm, atualizadoEm);
+    }
+    
+    public void setAtualizadoEm(String atualizadoEm)
+    {
+        try
+        {
+            setAtualizadoEm(new SimpleDateFormat("dd/MM/yyyy").parse(atualizadoEm));
+        }
+        catch (ParseException e)
+        {
+            System.err.println("Data inválida.");
+        }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+
+        hash = 47 * hash + this.id;
+        hash = 47 * hash + Objects.hashCode(this.cpf);
+        hash = 47 * hash + Objects.hashCode(this.primeiroNome);
+        hash = 47 * hash + Objects.hashCode(this.segundoNome);
+        hash = 47 * hash + Objects.hashCode(this.nascimento);
+        hash = 47 * hash + Objects.hashCode(this.email);
+        hash = 47 * hash + Objects.hashCode(this.senha);
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.renda) ^ (Double.doubleToLongBits(this.renda) >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.criadoEm);
+        hash = 47 * hash + Objects.hashCode(this.atualizadoEm);
+
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
         }
         
-        return false;
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        
+        final Usuario other = (Usuario) obj;
+        
+        if (this.id != other.id)
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.cpf, other.cpf))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.primeiroNome, other.primeiroNome))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.segundoNome, other.segundoNome))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.nascimento, other.nascimento))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.email, other.email))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha))
+        {
+            return false;
+        }
+        
+        if (Double.doubleToLongBits(this.renda) != Double.doubleToLongBits(other.renda))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.criadoEm, other.criadoEm))
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.atualizadoEm, other.atualizadoEm))
+        {
+            return false;
+        }
+
+        return true;
     }
+
+        
 }

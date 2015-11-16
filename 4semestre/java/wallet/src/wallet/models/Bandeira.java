@@ -1,8 +1,8 @@
 package wallet.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Objects;
 
 /**
  * Modelo para as bandeiras dos cartões.
@@ -12,92 +12,85 @@ import java.util.List;
  */
 public class Bandeira
 {
-    private List<Bandeira> padrao = new ArrayList<>();
-    private boolean usarPadrao = false;
+    private transient final PropertyChangeSupport propertyChangeSupport
+            = new PropertyChangeSupport(this);
     
     private int id;
-    private String nome;
+    private String descricao;
     
-    public Bandeira()
-    {
-        usarPadrao = false;
-    }
-    
-    // Construtor utilizado somente para não trabalhar com persistência no DB.
-    public Bandeira(boolean usarPadrao)
-    {
-        setPadrao(usarPadrao);
-
-        if (usarPadrao)
-        {
-            Bandeira[] bandeiras = new Bandeira[]
-            {
-                new Bandeira(1, "American Express"),
-                new Bandeira(2, "Elo"),
-                new Bandeira(3, "MasterCard"),
-                new Bandeira(4, "Visa"),
-                new Bandeira(5, "Diners Club"),
-            };
-
-            this.padrao = new ArrayList<>(Arrays.asList(bandeiras));
-        }
-    }
-    
-    public Bandeira(int id, String nome)
-    {
-        setId(id);
-        setNome(nome);
-    }
-    
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public void setPadrao(boolean padrao)
-    {
-        this.usarPadrao = padrao;
-    }
-    
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public boolean isPadrao()
-    {
-        return this.usarPadrao;
-    }
-    
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+    public static final String PROP_ID = "id";
+    public static final String PROP_DESCRICAO = "descricao";
     
     public int getId()
     {
-        return this.id;
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        int oldId = this.id;
+        this.id = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
+    }
+
+    public String getDescricao()
+    {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao)
+    {
+        String oldDescricao = this.descricao;
+        this.descricao = descricao;
+        propertyChangeSupport.firePropertyChange(PROP_DESCRICAO, oldDescricao, descricao);
     }
     
-    public void setNome(String nome)
+    public void addPropertyChangeListener(PropertyChangeListener listener)
     {
-        this.nome = nome;
+        propertyChangeSupport.addPropertyChangeListener(listener);
     }
-    
-    public String getNome()
+
+    public void removePropertyChangeListener(PropertyChangeListener listener)
     {
-        return this.nome;
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
-    
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public List<Bandeira> getPadrao()
+
+    @Override
+    public int hashCode()
     {
-        if (isPadrao())
+        int hash = 7;
+        
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.descricao);
+        
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
         {
-            return this.padrao;
+            return false;
         }
-        else
+        
+        if (getClass() != obj.getClass())
         {
-            return null;
+            return false;
         }
-    }
-    
-    // Utilizado somente para não trabalhar com persistência no DB.
-    public void adicionar(Bandeira bandeira)
-    {
-        this.padrao.add(bandeira);
+        final Bandeira other = (Bandeira) obj;
+        
+        if (this.id != other.id)
+        {
+            return false;
+        }
+        
+        if (!Objects.equals(this.descricao, other.descricao))
+        {
+            return false;
+        }
+        
+        return true;
     }
     
     
